@@ -2,7 +2,11 @@
 Thumbs.db
 db.json
 *.log
-node_modules/
+
+#忽略主题文件之外的其他依赖项
+node_modules/*
+!node_modules/hexo-theme-butterfly
+
 public/
 .deploy*/
 _multiconfig.yml
