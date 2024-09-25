@@ -118,10 +118,6 @@ deploy:
   repository: git@github.com:aoxuexinghuo/aoxuexinghuo.github.io.git
   branch: main
 
-#主页文章双列显示
-butterfly_article_double_row:
-  enable: true
-
 markdown:
   preset: "default" # 使用 Markdown-it 的默认预设，可以改为 'commonmark' 或 'zero'
   render:
