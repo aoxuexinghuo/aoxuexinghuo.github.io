@@ -239,9 +239,9 @@ aside:
     description:
     button:
       enable: true
-      icon: fab fa-github
-      text: 要关注我吗？
-      link: https://github.com/aoxuexinghuo
+      icon: fas fa-gamepad
+      text: 来场酣畅淋漓的对战吧！
+      link: https://play.pokemonshowdown.com/
   card_announcement:
     enable: true
     content: 别学了，做会宝可梦吧( ‘-ωก̀ )
