@@ -7,11 +7,11 @@
       descr: 快速、简单且强大的网志框架
       siteshot: https://source.fomal.cc/siteshot/hexo.io.jpg
 
-#- class_name: 2.友情链接
-#  class_desc: 一些好朋友~~
-#  link_list:
-#    - name: Fomalhaut🥝
-#      link: https://fomal.cc/
-##      avatar: /assets/head.jpg
-#      descr: Future is now 🍭🍭🍭
-#      siteshot: https://source.fomal.cc/siteshot/www.fomal.cn.jpg
+- class_name: 2.友情链接
+  class_desc: 一些好朋友~~
+  link_list:
+    - name: Fomalhaut🥝
+      link: https://fomal.cc/
+#      avatar: /assets/head.jpg
+      descr: Future is now 🍭🍭🍭
+      siteshot: https://source.fomal.cc/siteshot/www.fomal.cn.jpg
