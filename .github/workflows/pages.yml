@@ -25,7 +25,9 @@ jobs:
       - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
-          path: node_modules
+          path: |
+            node_modules
+            !node_modules/hexo-theme-butterfly
           key: ${{ runner.OS }}-npm-cache
           restore-keys: |
             ${{ runner.OS }}-npm-cache
