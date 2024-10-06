@@ -36,5 +36,10 @@ jobs:
       - name: Generate static site
         run: npx hexo generate  # 使用 hexo generate 生成静态文件
 
+      - name: Setup Git identity  # 配置 Git 的 user.name 和 user.email
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
       - name: Deploy to GitHub Pages
         run: npx hexo deploy  # 使用 hexo deploy 部署到 GitHub Pages
