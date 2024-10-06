@@ -27,7 +27,6 @@ jobs:
         with:
           path: |
             node_modules
-#   排除 hexo-theme-butterfly 文件夹
             !node_modules/hexo-theme-butterfly
           key: ${{ runner.OS }}-npm-cache
           restore-keys: |
