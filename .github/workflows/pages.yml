@@ -27,30 +27,14 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-npm-cache
 
-      - name: Ensure hexo-theme-butterfly is intact
-        run: rm -rf node_modules/hexo-theme-butterfly  # 避免缓存问题
-
       - name: Install Dependencies
         run: npm install
 
+      - name: Clean Hexo
+        run: npx hexo clean
+
       - name: Generate static site
-        run: npm run build  # 使用 npm run build 生成静态文件
+        run: npx hexo generate  # 使用 hexo generate 生成静态文件
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public  # 上传 public 文件夹内容
-
-  deploy:
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        run: npx hexo deploy  # 使用 hexo deploy 部署到 GitHub Pages
