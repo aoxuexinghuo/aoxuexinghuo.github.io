@@ -3,16 +3,15 @@ name: Pages
 on:
   push:
     branches:
-      - main # default branch
+      - main # 或你要监听的分支
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # 检出代码
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive  # 确保子模块正确检出
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GITHUB_TOKEN 自动身份验证
 
       - name: Use Node.js 20.16.0
         uses: actions/setup-node@v4
@@ -34,12 +33,9 @@ jobs:
         run: npx hexo clean
 
       - name: Generate static site
-        run: npx hexo generate  # 使用 hexo generate 生成静态文件
-
-      - name: Setup Git identity  # 配置 Git 的 user.name 和 user.email
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+        run: npx hexo generate
 
       - name: Deploy to GitHub Pages
-        run: npx hexo deploy  # 使用 hexo deploy 部署到 GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub Actions 令牌
+        run: npx hexo deploy
