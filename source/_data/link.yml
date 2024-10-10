@@ -17,11 +17,11 @@
 #      siteshot: https://source.fomal.cc/siteshot/www.fomal.cn.jpg
     - name: 立石志摩
       link: http://tateishishima.site/
-      avatar: http://www.tateishishima.site/imgs/1.jpg
+      avatar: /img/牢饭头像.jpg
       descr: 永远可靠的牢饭！
     - name: Zedsich
       link: https://zedsich.github.io/
-      avatar: /img/牢饭头像.png
+      avatar: https://zedsich.github.io/img/about/resized/avatar.jpg
       descr: 小小喵的夏天是刀塔客。
     - name: lyydsheep
       link: https://lyydsheep.github.io/
