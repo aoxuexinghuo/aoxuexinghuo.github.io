@@ -337,7 +337,7 @@ darkmode:
   end: # 22
 
 # show scroll percent in scroll-to-top button
-rightside_scroll_percent: false
+rightside_scroll_percent: true
 
 # Don't modify the following settings unless you know how they work (非必要請不要修改 )
 # Choose: readmode,translate,darkmode,hideAside,toc,chat,comment
@@ -732,8 +732,9 @@ clickShowText:
 display_mode: light
 
 # Beautify (美化頁面顯示)
+#文章小标题美化
 beautify:
-  enable: false
+  enable: true
   field: post # site/post
   title-prefix-icon: # '\f0c1'
   title-prefix-icon-color: # '#F47466'
