@@ -1,0 +1,49 @@
+#- class_name: 1.技术支持
+#  class_desc: 本网站的搭建由以下开源作者提供技术支持
+#  link_list:
+#    - name: Hexo
+#      link: https://hexo.io/zh-cn/
+#      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
+#      descr: 快速、简单且强大的网志框架
+#      siteshot: https://source.fomal.cc/siteshot/hexo.io.jpg
+
+- class_name: 友情链接
+  class_desc: 有些人仅仅是相遇就已经很有意义。
+  link_list:
+    - name: hby-star
+      link: https://github.com/hby-star
+      avatar: https://avatars.githubusercontent.com/u/102033190?v=4
+      descr: 傲雪星火的良师益友。
+#      siteshot: https://source.fomal.cc/siteshot/www.fomal.cn.jpg
+    - name: 立石志摩
+      link: http://tateishishima.site/
+      avatar: /img/牢饭头像.jpg
+      descr: 永远可靠的牢饭！
+    - name: Zedsich
+      link: https://zedsich.github.io/
+      avatar: https://zedsich.github.io/img/about/resized/avatar.jpg
+      descr: 小小喵的夏天是刀塔客。
+    - name: lyydsheep
+      link: https://lyydsheep.github.io/
+      avatar: https://dlut-tic.github.io/avatars/Lyd.png
+      descr: 教练，我想学go语言。
+    - name: Simon
+      link: https://github.com/SimonWuZY
+      avatar: https://avatars.githubusercontent.com/u/153283769?v=4
+      descr: 腾讯组的超人!
+    - name: saber
+      link: https://emisaber.github.io/White_Box/
+      avatar: https://dlut-tic.github.io/avatars/Saber.jpg
+      descr: 传说中的大哲学家
+    - name: Nanami
+      link: https://nanami14138.github.io/Nanami14138/
+      avatar: https://avatars.githubusercontent.com/u/156402241?v=4
+      descr: 「致以无瑕之人」爱莉希雅
+    - name: madaoQ
+      link: https://github.com/madaoQ
+      avatar: https://dlut-tic.github.io/avatars/Qym.png
+      descr: 全栈开发工程师
+    - name: Sazerac
+      link: https://sazerac-kk.github.io/
+      avatar: https://dlut-tic.github.io/avatars/Wkk.png
+      descr: 包不是咸鱼的。

@@ -16,14 +16,20 @@ nav:
   # Whether to fix navigation bar
   fixed: false
 
+# Menu 目录
 menu:
-  # Home: / || fas fa-home
-  # List||fas fa-list:
-  #   Music: /music/ || fas fa-music
-  #   Movie: /movies/ || fas fa-video
+  首页: / || fas fa-home
+  时间轴: /archives/ || fas fa-archive
+  标签: /tags/ || fas fa-tags
+  分类: /categories/ || fas fa-folder-open
+  #   清单||fas fa-list:
+  #     音乐: /music/ || fas fa-music
+  #     电影: /movies/ || fas fa-video
+  友人帐: /link/ || fas fa-link
+  关于: /about/ || fas fa-heart
 
 # --------------------------------------
-# Code Blocks Settings
+# Code Blocks Settings(代码相关)
 # --------------------------------------
 
 code_blocks:
@@ -45,27 +51,30 @@ code_blocks:
 # Formal:
 #   icon: link || the description || color
 social:
-  # fab fa-github: https://github.com/xxxxx || Github || '#24292e'
-  # fas fa-envelope: mailto:xxxxxx@gmail.com || Email || '#4a7dbe'
+  fab fa-github: https://github.com/aoxuexinghuo || Github || '#24292e'
+  fab fa-bilibili: https://space.bilibili.com/1152084837 || Bilibili || '#00a1d6'
+  fas fa-c: https://blog.csdn.net/qq_63978748 || CSDN || '#FF6600'
 
 # --------------------------------------
-# Image Settings
+# Image Settings(图片设置)
 # --------------------------------------
 
-favicon: /img/favicon.png
+# Favicon（网站图标）
+favicon: img/pikachu.png
 
+# Avatar (头像)
 avatar:
-  img: /img/butterfly-icon.png
+  img: img/avatar.jpg
   effect: false
 
-# Disable all banner images
+# 禁用所有横幅图像
 disable_top_img: false
 
 # If the banner of page not setting, it will show the default_top_img
-default_top_img:
+default_top_img: https://bu.dusays.com/2024/11/27/6746de141be4f.jpg
 
 # The banner image of index page
-index_img:
+index_img: https://bu.dusays.com/2024/11/27/6746de5840753.jpg
 
 # The banner image of archive page
 archive_img:
@@ -87,20 +96,27 @@ category_img:
 category_per_img:
 
 # The background image of footer
-footer_img: false
+footer_img: True
 
 # Website Background
 # Can set it to color or image url
-background:
+background: https://bu.dusays.com/2024/11/27/6746de97857ae.jpg
 
 cover:
-  # Disable the cover or not
+  # Disable the cover or not (是否展示文章封面)
   index_enable: true
   aside_enable: true
   archives_enable: true
   # When cover is not set, the default cover is displayed
   default_cover:
-    # - xxx.jpg
+    - https://bu.dusays.com/2024/11/27/6746dee5408d3.jpg
+    - https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg
+    - https://bu.dusays.com/2024/11/27/6746e01b2308a.jpg
+    - https://bu.dusays.com/2024/11/27/6746e02939613.jpg
+    - https://bu.dusays.com/2024/11/27/6746e02b1d09c.jpg
+    - https://bu.dusays.com/2024/11/27/6746e04015924.jpg
+    - https://bu.dusays.com/2024/11/27/6746e041bb5c4.jpg
+    - https://bu.dusays.com/2024/11/27/6746e05871049.jpg
 
 # Replace Broken Images
 error_img:
@@ -109,9 +125,9 @@ error_img:
 
 # A simple 404 page
 error_404:
-  enable: false
+  enable: true
   subtitle: 'Page Not Found'
-  background: /img/error-page.png
+  background: https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png
 
 post_meta:
   # Home Page
@@ -147,7 +163,7 @@ index_top_img_height:
 
 # The subtitle on homepage
 subtitle:
-  enable: false
+  enable: true
   # Typewriter Effect
   effect: true
   # Customize typed.js
@@ -163,6 +179,8 @@ subtitle:
   source: false
   # If you close the typewriter effect, the subtitle will only show the first line of sub
   sub:
+    - "你所憧憬的那个少年身上，可有几分是对自己的期许？✨✨✨"
+    - "对了，欢迎来到我的博客，很高兴认识你！🍭"
 
 # Article layout on the homepage
 # 1: Cover on the left, info on the right
@@ -172,7 +190,7 @@ subtitle:
 # 5: Info displayed on the cover
 # 6: Masonry layout - Cover on top, info on the bottom
 # 7: Masonry layout - Info displayed on the cover
-index_layout: 3
+index_layout: 1
 
 # Display the article introduction on homepage
 # 1: description
@@ -256,10 +274,10 @@ noticeOutdate:
 footer:
   owner:
     enable: true
-    since: 2019
-  custom_text:
+    since: 2024
+  custom_text: 有一天，我看了四十四次日落！你知道的，当一个人情绪低落的时候，他会格外喜欢看日落。 —— 《小王子》
   # Copyright of theme and framework
-  copyright: true
+  copyright: false # Copyright of theme and framework
 
 # --------------------------------------
 # Aside Settings
@@ -282,12 +300,12 @@ aside:
     description:
     button:
       enable: true
-      icon: fab fa-github
-      text: Follow Me
-      link: https://github.com/xxxxxx
+      icon: fas fa-gamepad
+      text: 来场酣畅淋漓的对战吧！
+      link: https://play.pokemonshowdown.com/
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 别学了，做会宝可梦吧( ‘-ωก̀ )
   card_recent_post:
     enable: true
     # If set 0 will show all
@@ -313,7 +331,7 @@ aside:
     enable: true
     # If set 0 will show all
     limit: 40
-    color: false
+    color: true
     # Order of tags, random/name/length
     orderby: random
     # Sort of order. 1, asc for ascending; -1, desc for descending
@@ -1030,9 +1048,15 @@ css_prefix: true
 # Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
 inject:
   head:
-    # - <link rel="stylesheet" href="/xxx.css">
+    - <link rel="stylesheet" href="/css/custom.css">
+    - <link rel="stylesheet" href="/css/progress_bar.css" media="defer" onload="this.media='all'">
   bottom:
-    # - <script src="xxxx"></script>
+    - <canvas id="universe"></canvas>
+    #      星空背景及流行特效相关
+    - <script defer src="/js/universe.js"></script>
+    #      顶部渐变条色加载条相关
+    - <script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script>
+
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work
