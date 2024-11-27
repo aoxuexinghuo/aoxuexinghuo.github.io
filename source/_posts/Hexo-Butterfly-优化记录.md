@@ -25,4 +25,7 @@ tags:
 参考文章：[Friend Link Card Beautify | Akilarの糖果屋](https://akilar.top/posts/57291286/)
 
 就喜欢这种大开大合的删减！
+
 注意部分模式需要额外添加缩略图，即添加一条名为`siteshot`的配置项。
+
+有bug，没救了（
