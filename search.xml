@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Hexo+Butterfly 优化记录</title>
+      <link href="/2024/11/27/Hexo-Butterfly-%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/"/>
+      <url>/2024/11/27/Hexo-Butterfly-%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-hexo-butterfly-charts插件"><a href="#1-hexo-butterfly-charts插件" class="headerlink" title="1.hexo-butterfly-charts插件"></a>1.hexo-butterfly-charts插件</h2><p>参考文章：<a href="https://blog.guole.fun/posts/18158/#">使用Charts插件给Butterfly增加统计图表 | Guo Le’s Blog</a></p><h2 id="2-安知鱼波浪"><a href="#2-安知鱼波浪" class="headerlink" title="2.安知鱼波浪"></a>2.安知鱼波浪</h2><p>参考文章：<a href="https://blog.anheyu.com/posts/98c4.html">butterfly文章顶部添加波浪效果 | 安知鱼 (anheyu.com)</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Butterfly </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网</title>
       <link href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/"/>
       <url>/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/</url>
