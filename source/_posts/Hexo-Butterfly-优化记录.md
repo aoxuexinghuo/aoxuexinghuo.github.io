@@ -18,3 +18,11 @@ tags:
 ## 3.渐变色版权美化
 
 参考文章：[（二创）Copyright-beautify | Akilarの糖果屋](https://akilar.top/posts/8322f8e6/)
+友链部分字体似乎被同步修改为蓝色，很丑...
+
+## 4.友链样式功能升级
+
+参考文章：[Friend Link Card Beautify | Akilarの糖果屋](https://akilar.top/posts/57291286/)
+
+就喜欢这种大开大合的删减！
+注意部分模式需要额外添加缩略图，即添加一条名为`siteshot`的配置项。
