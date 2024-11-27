@@ -14,3 +14,7 @@ tags:
 ## 2.安知鱼波浪
 
 参考文章：[butterfly文章顶部添加波浪效果 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/98c4.html)
+
+## 3.渐变色版权美化
+
+参考文章：[（二创）Copyright-beautify | Akilarの糖果屋](https://akilar.top/posts/8322f8e6/)
