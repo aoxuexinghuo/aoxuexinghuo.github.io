@@ -42,4 +42,8 @@ tags:
 
 参考文章：[博客魔改教程总结(五) | Fomalhaut🥝](https://www.fomal.cc/posts/eec9786.html)
 
-（2）
+## 7.加载动画
+
+参考文章：[Heo同款loading动画 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/52d8.html)
+
+豪坎！
