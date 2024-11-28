@@ -807,9 +807,9 @@ display_mode: light
 
 # Configuration for beautifying the content of the article
 beautify:
-  enable: false
+  enable: ture
   # Specify the field to beautify (site or post)
-  field: post
+  field: site
   # Specify the icon to be used as a prefix for the title, such as '\f0c1'
   title_prefix_icon:
   # Specify the color of the title prefix icon, such as '#F47466'
