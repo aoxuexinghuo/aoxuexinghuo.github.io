@@ -47,3 +47,7 @@ tags:
 参考文章：[Heo同款loading动画 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/52d8.html)
 
 豪坎！
+
+## 8.电子钟
+
+参考文章：[给butterfly添加侧边栏电子钟 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/fc18.html)
