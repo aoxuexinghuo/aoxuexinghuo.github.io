@@ -5,6 +5,7 @@ category: Hexo
 tags:
   - Hexo
   - Butterfly
+swiper_index: 2
 ---
 
 ## 1.Twikoo评论系统
@@ -53,3 +54,9 @@ tags:
 参考文章：[给butterfly添加侧边栏电子钟 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/fc18.html)
 
 emm，你这个天气好像不太对。
+
+## 9.首页轮播
+
+参考文章：[Swiper Bar | Akilarの糖果屋](https://akilar.top/posts/8e1264d1/)
+
+哎，差点意思。
