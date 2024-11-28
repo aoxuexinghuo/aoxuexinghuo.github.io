@@ -7,20 +7,28 @@ tags:
   - Butterfly
 ---
 
-## 1.hexo-butterfly-charts插件
+## 1.Twikoo评论系统
+
+参考文章：[Twikoo | 一个简洁、安全、免费的静态网站评论系统](https://twikoo.js.org/)
+
+云函数使用Vercel部署，目前评论系统需要科学上网才能使用。
+
+昵称栏输入QQ号后可自动读取头像、昵称、QQ邮箱。
+
+## 2.hexo-butterfly-charts插件
 
 参考文章：[使用Charts插件给Butterfly增加统计图表 | Guo Le's Blog](https://blog.guole.fun/posts/18158/#)
 
-## 2.安知鱼波浪
+## 3.安知鱼波浪
 
 参考文章：[butterfly文章顶部添加波浪效果 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/98c4.html)
 
-## 3.渐变色版权美化
+## 4.渐变色版权美化
 
 参考文章：[（二创）Copyright-beautify | Akilarの糖果屋](https://akilar.top/posts/8322f8e6/)
 友链部分字体似乎被同步修改为蓝色，很丑...
 
-## 4.友链样式功能升级
+## 5.友链样式功能升级
 
 参考文章：[Friend Link Card Beautify | Akilarの糖果屋](https://akilar.top/posts/57291286/)
 
@@ -28,4 +36,10 @@ tags:
 
 注意部分模式需要额外添加缩略图，即添加一条名为`siteshot`的配置项。
 
-有bug，没救了（
+## 6.导航栏魔改
+
+（1）菜单居中
+
+参考文章：[博客魔改教程总结(五) | Fomalhaut🥝](https://www.fomal.cc/posts/eec9786.html)
+
+（2）
