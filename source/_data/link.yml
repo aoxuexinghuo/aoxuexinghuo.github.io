@@ -50,6 +50,11 @@
 - class_name: 技术支持
   class_desc: 本网站的搭建由以下开源作者提供技术支持
   link_list:
+    - name: Butterfly
+      link: https://butterfly.js.org/
+      avatar: https://butterfly.js.org/img/butterfly-icon.png
+      descr: A Simple and Card UI Design theme for Hexo
+      siteshot: https://bu.dusays.com/2024/11/26/67457ee3ac1de.png
     - name: Fomalhaut🥝
       link: https://www.fomal.cc/
       avatar: https://sourcebucket.s3.bitiful.net/img/avatar.webp
