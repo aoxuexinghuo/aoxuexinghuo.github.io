@@ -46,6 +46,31 @@ swiper_index: 2
 
 参考文章：[博客魔改教程总结(五) | Fomalhaut🥝](https://www.fomal.cc/posts/eec9786.html)
 
+（2）颜色修改
+
+custom.css 文件插入如下内容，渐变色导航栏。
+
+```css
+/* 导航栏 */
+#page-header.nav-fixed #nav {
+    /*background: rgba(135,206,250, 0.75);*/
+    background: linear-gradient(
+            -45deg,
+            #e8d8b9,
+            #a3e9eb,
+            #00BFFF
+    );
+    backdrop-filter: var(--backdrop-filter);
+}
+
+[data-theme="dark"] #page-header.nav-fixed #nav {
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+```
+
+
+
 ## 7.加载动画
 
 参考文章：[Heo同款loading动画 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/52d8.html)
@@ -63,3 +88,13 @@ emm，你这个天气好像不太对。
 参考文章：[Swiper Bar | Akilarの糖果屋](https://akilar.top/posts/8e1264d1/)
 
 哎，差点意思。
+
+## 10.hexo-magnet 插件
+
+参考文章：[教程：hexo-magnet 插件 1.0 | 小冰博客 (zfe.space)](https://zfe.space/post/hexo-magnet.html)
+
+挺可爱的。
+
+## 11.主题色修改
+
+Butterfly的主题色配置似乎存在bug，直接跑到 var.style 文件狠狠修改变量，简单粗暴。
