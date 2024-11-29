@@ -118,7 +118,7 @@ tags:
 </script>
 ```
 
-![hx9qd](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/hx9qd.png)
+![1](https://bu.dusays.com/2024/11/29/67491b318e668.png)
 
 
 这里我们实现的功能是在 Search 组件中输入数据然后在 Show 组件中将其实时显示出来。下面我们对整个过程详细解释：
@@ -268,7 +268,7 @@ tags:
 
 这里我们将原本的`<Child/>`单标签修改为双标签，在里面写下我们需要传递的 HTML 片段。然后我们就可以在 Child 以`<slot></slot>`的方式使用该片段。这里的`<slot>`元素是一个插槽出口，标示了父元素提供的插槽内容将会在哪里被渲染，我们可以自行为其选定位置，也可以多次使用。下面这张来自官网的图片也能够帮我们更加具体的了解插槽的使用原理：
 
-![p5rip](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/p5rip.png)
+![2](https://bu.dusays.com/2024/11/29/67491b3ecfd9c.png)
 
 ### 2.渲染作用域
 

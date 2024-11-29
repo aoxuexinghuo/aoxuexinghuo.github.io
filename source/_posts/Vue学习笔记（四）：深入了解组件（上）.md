@@ -77,7 +77,7 @@ tags:
 
 在实际应用中，组件常常被我们组织成层层嵌套的树状结构：
 
-![amcsz](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/amcsz.png)
+![1](https://bu.dusays.com/2024/11/29/67491ad9463c1.png)
 
 上方这张图来自于官方文档，就让我们以这张图所提供的嵌套方式为例，进行页面创建：
 
@@ -214,7 +214,7 @@ tags:
 
 这里我们单独建立了一个 pages 网页用于存储各个组件，读者可根据实际情况自行调整文件路径。最后我们就能得到如下的网页了，怎么样，是不是和官方文档的图片很像呢？记得要仔细观察各个组件之间的嵌套逻辑以及嵌套实现方式哦！
 
-![68tuu](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/68tuu.png)
+![2](https://bu.dusays.com/2024/11/29/67491adf68a11.png)
 
 ## 三、组件注册方式
 
@@ -400,7 +400,7 @@ Vue 组件可以更加细致地声明对传入的`props`的校验要求：
 
 上面这段代码的含义就是要求接受到的`test`的数据类型为`Number`（注意此处的 N 要大写，否则会显示`number`未定义），如果不是`Number`类型，控制台就会出现警告。
 
-![4oqku](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/4oqku.png)
+![3](https://bu.dusays.com/2024/11/29/67491ae70025e.png)
 
 同样的`Prop`还能校验`String`，`Array`，`Object`等数据类型，此外还能兼容多个数据类型，例如：
 
@@ -457,4 +457,4 @@ default() {
     }
 ```
 
-![xyz5o](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/xyz5o.png)
+![4](https://bu.dusays.com/2024/11/29/67491aeba8dba.png)

@@ -69,7 +69,7 @@ tags:
 - 适合用于完全清理资源或进行一些统计、日志记录等操作。
 - 下面这张图可以帮助我们更好地了解一个 Vue 组件所经历生命周期：
 
-![a9btf](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/a9btf.png)
+![1](https://bu.dusays.com/2024/11/29/67491bc161530.png)
 
 ### 2.钩子函数
 
@@ -101,7 +101,7 @@ export default {
 </script>
 ```
 
-![pk1ue](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/pk1ue.png)
+![2](https://bu.dusays.com/2024/11/29/67491bc653c3b.png)
 
 
 可以看到网页的标题成功修改，同时控制台也打印了相关信息。
@@ -248,11 +248,11 @@ mounted() {
 
 #### （7）实现效果
 
-![qve3t](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/qve3t.png)
+![3](https://bu.dusays.com/2024/11/29/67491bcd8d044.png)
 
-![766ah](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/766ah.png)
+![4](https://bu.dusays.com/2024/11/29/67491bd119f9f.png)
 
-![gow9b](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/gow9b.png)
+![5](https://bu.dusays.com/2024/11/29/67491bd51d339.png)
 
 可以看到，当我们点击不同的链接时，会改变 URL 的 hash 部分，从而触发 Vue.js 应用中对应的组件显示。
 

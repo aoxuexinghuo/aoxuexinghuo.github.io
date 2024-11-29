@@ -319,7 +319,9 @@ Vue 能够侦听响应式数组的变更方法，并在他们被调用时触发�
 </script>
 ```
 
-![4463j](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/4463j.png)
+![1](https://bu.dusays.com/2024/11/29/674919d0cefc8.png)
+
+![2](https://bu.dusays.com/2024/11/29/674919d44d082.png)
 
 
 可以看到，当我们点击按钮时，`names`数组被添加了一个元素，而 UI 界面也发生了变化，将新加入的元素渲染了出来。
@@ -337,9 +339,9 @@ Vue 能够侦听响应式数组的变更方法，并在他们被调用时触发�
       }
 ```
 
-![arq6t](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/arq6t.png)
+![3](https://bu.dusays.com/2024/11/29/674919d808281.png)
 
-![oei2g](https://raw.githubusercontent.com/Emisaber/pic_obsidian/main/oei2g.png)
+![4](https://bu.dusays.com/2024/11/29/67491a09f12ee.png)
 
 我们可以看到按下按钮后，我们得到了一个新的数组，而原数组并没有发生变化，UI 也没有更新。
 

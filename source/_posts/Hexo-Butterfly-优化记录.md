@@ -5,6 +5,7 @@ category: Hexo
 tags:
   - Hexo
   - Butterfly
+description: 记录对博客的修改，目前看起来还是很塑料。
 swiper_index: 2
 ---
 
@@ -12,7 +13,9 @@ swiper_index: 2
 
 参考文章：[Twikoo | 一个简洁、安全、免费的静态网站评论系统](https://twikoo.js.org/)
 
-云函数使用Vercel部署，目前评论系统需要科学上网才能使用。
+~~云函数使用Vercel部署，目前评论系统需要科学上网才能使用。~~
+
+目前已能正常使用，感谢牢饭的域名。
 
 昵称栏输入QQ号后可自动读取头像、昵称、QQ邮箱。
 
