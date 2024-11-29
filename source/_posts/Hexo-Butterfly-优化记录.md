@@ -69,8 +69,6 @@ custom.css 文件插入如下内容，渐变色导航栏。
 
 ```
 
-
-
 ## 7.加载动画
 
 参考文章：[Heo同款loading动画 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/52d8.html)
@@ -98,3 +96,26 @@ emm，你这个天气好像不太对。
 ## 11.主题色修改
 
 Butterfly的主题色配置似乎存在bug，直接跑到 var.style 文件狠狠修改变量，简单粗暴。
+
+## 12.樱花飘落特效
+
+在对应页面加入`- <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>`
+
+或者在主题配置文件中全局引入：
+
+```yml
+inject:
+  head:
+  bottom:
+    - <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>
+```
+
+挺好看的，就是看久了有点烦，全局引入还是算了。
+
+想到了那句歌：
+
+> さくら さくら 会いたいよ
+>
+> いやだ 君に今すぐ会いたいよ
+
+好汀。
