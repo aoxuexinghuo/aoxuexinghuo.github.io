@@ -99,7 +99,7 @@ Butterfly的主题色配置似乎存在bug，直接跑到 var.style 文件狠狠
 
 ## 12.樱花飘落特效
 
-在对应页面加入`- <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>`
+在对应页面加入`- <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>`，建议放在head标签里。
 
 或者在主题配置文件中全局引入：
 
