@@ -354,7 +354,14 @@ div#archive {
 
 /* 导航栏 */
 #page-header.nav-fixed #nav {
-    background: rgba(255, 255, 255, 0.75);
+    /*background: rgba(135,206,250, 0.75);*/
+    background: linear-gradient(
+            -45deg,
+            #e8d8b9,
+            #a3e9eb,
+            #00BFFF
+    );
+
     backdrop-filter: var(--backdrop-filter);
 }
 
