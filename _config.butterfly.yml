@@ -114,7 +114,7 @@ category_img:
 category_per_img:
 
 # The background image of footer
-footer_img: True
+footer_img: https://bu.dusays.com/2024/11/27/6746e02939613.jpg
 
 # Website Background
 # Can set it to color or image url
@@ -852,9 +852,9 @@ beautify:
   # Specify the field to beautify (site or post)
   field: site
   # Specify the icon to be used as a prefix for the title, such as '\f0c1'
-  title_prefix_icon:
+  title_prefix_icon: '\f863'
   # Specify the color of the title prefix icon, such as '#F47466'
-  title_prefix_icon_color:
+  title_prefix_icon_color: "#F47466"
 
 # Global font settings
 # Don't modify the following settings unless you know how they work

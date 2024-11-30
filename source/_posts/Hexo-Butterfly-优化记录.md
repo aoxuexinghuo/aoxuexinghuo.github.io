@@ -6,6 +6,7 @@ tags:
   - Hexo
   - Butterfly
 description: 记录对博客的修改，目前看起来还是很塑料。
+cover: https://bu.dusays.com/2024/11/30/674ae885d9695.jpg
 swiper_index: 2
 ---
 
