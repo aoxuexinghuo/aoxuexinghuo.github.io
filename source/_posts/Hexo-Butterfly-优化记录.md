@@ -99,7 +99,7 @@ Butterfly的主题色配置似乎存在bug，直接跑到 var.style 文件狠狠
 
 ## 12.樱花飘落特效
 
-在对应页面加入`- <script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>`，建议放在bottom标签里。
+在对应页面加入`<script async src="https://npm.elemecdn.com/tzy-blog/lib/js/other/sakura.js"></script>`。
 
 或者在主题配置文件中全局引入：
 
@@ -118,4 +118,10 @@ inject:
 >
 > いやだ 君に今すぐ会いたいよ
 
-好汀。
+好汀！
+
+## 13.字体修改
+
+参考文章：[分类: 魔改教程 | Fomalhaut🥝](https://www.fomal.cc/posts/eec9786.html)
+
+修改字体为霞鹜文楷，楷体真的满足了我对文字的一切美好幻想。
