@@ -196,7 +196,7 @@ npm i markdown-it-mathjax3
 
 统统加进去，我可以不用，但不能没有（
 
-## 14.导航栏取消文章标题显示
+## 15.导航栏取消文章标题显示
 
 我的文章标题都很长，放在导航栏上很丑，还会和其他部件重叠，因此想要关掉。
 
@@ -204,7 +204,7 @@ npm i markdown-it-mathjax3
 
 即取消对文章标题的判断，直接显示博客的标题。
 
-## 15.引入外挂标签
+## 16.引入外挂标签
 
 参考文章：[分类: 魔改教程 | Fomalhaut🥝](https://www.fomal.cc/posts/5389e93f.html)
 
@@ -213,3 +213,9 @@ npm i markdown-it-mathjax3
 实测`hexo-renderer-markdown-it`渲染器可以支持。
 
 Butterfly外挂标签很好看，可惜原生markdown不支持这些花里胡哨的东西，不知道会不会养成坏习惯。
+
+## 17.标题小风车
+
+参考文章：[butterfly 重装日记 | 安知鱼 (anheyu.com)](https://blog.anheyu.com/posts/sdxhu.html)
+
+风车风车还是小风车，真没创意。
