@@ -16,6 +16,7 @@
     "hexo-butterfly-charts": "^1.1.6",
     "hexo-butterfly-clock-anzhiyu": "^1.1.8",
     "hexo-butterfly-swiper": "^1.0.12",
+    "hexo-butterfly-tag-plugins-plus": "^1.0.18",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^2.0.0",

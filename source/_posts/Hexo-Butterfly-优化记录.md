@@ -203,5 +203,12 @@ npm i markdown-it-mathjax3
 
 即取消对文章标题的判断，直接显示博客的标题。
 
+## 15.引入外挂标签
 
+参考文章：[分类: 魔改教程 | Fomalhaut🥝](https://www.fomal.cc/posts/5389e93f.html)
 
+格式汇总：[Markdown语法与外挂标签写法汇总 | Fomalhaut🥝](https://www.fomal.cc/posts/2013454d.html)
+
+实测`hexo-renderer-markdown-it`渲染器可以支持。
+
+Butterfly外挂标签很好看，可惜原生markdown不支持这些花里胡哨的东西，不知道会不会养成坏习惯。
