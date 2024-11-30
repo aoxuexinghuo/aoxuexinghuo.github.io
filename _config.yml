@@ -154,3 +154,48 @@ deploy:
   type: git
   repository: git@github.com:aoxuexinghuo/aoxuexinghuo.github.io.git
   branch: gh-pages
+
+markdown:
+  preset: "default"          # 使用 Markdown-it 的默认预设，可以改为 'commonmark' 或 'zero'
+  render:
+    html: true               # 允许在 Markdown 中直接使用 HTML 标签
+    xhtmlOut: false          # 禁用 XHTML 输出格式
+    langPrefix: "language-"  # 为代码块的语言添加前缀（如 "language-js"）
+    breaks: true             # 将 Markdown 中的换行符转换为 <br> 标签
+    linkify: false           # 自动将类似 URL 的文本转换为可点击链接
+    typographer: false       # 启用排版优化（例如，将普通引号转成智能引号）
+    quotes: "“”‘’"           # 定义引号的样式，使用中文引号样式
+  enable_rules:              # 启用的 Markdown-it 渲染规则（留空表示默认规则）
+  disable_rules:             # 禁用的 Markdown-it 渲染规则（留空表示没有禁用任何规则）
+  plugins:                   # 配置要启用的 markdown-it 插件列表
+    - markdown-it-abbr       # 支持缩写 (abbr) 语法
+    - markdown-it-cjk-breaks # 支持中文、日文、韩文换行
+    - markdown-it-deflist    # 支持定义列表 (definition list) 语法
+    - markdown-it-emoji      # 支持 Emoji 表情
+    - markdown-it-footnote   # 支持脚注
+    - markdown-it-ins        # 支持插入内容 <ins>
+    - markdown-it-mark       # 支持标记内容 <mark>
+    - markdown-it-sub        # 支持下标 <sub>
+    - markdown-it-sup        # 支持上标 <sup>
+    - markdown-it-checkbox   # 支持复选框语法
+    - markdown-it-imsize     # 支持自定义图片尺寸
+    - markdown-it-expandable # 支持可折叠内容
+    - markdown-it-mathjax3        # 支持数学公式 (MathJax3)
+    - name: markdown-it-container # 支持自定义容器 block，用于设置各种自定义内容块
+      options: success            # 定义 "success" 类型的容器（例如，用于成功提示）
+    - name: markdown-it-container
+      options: tips               # 定义 "tips" 类型的容器（例如，用于小提示）
+    - name: markdown-it-container
+      options: warning            # 定义 "warning" 类型的容器（例如，用于警告提示）
+    - name: markdown-it-container
+      options: danger             # 定义 "danger" 类型的容器（例如，用于危险提示）
+  anchors:
+    level: 2                            # 设置锚点的级别，表示从第 2 级标题开始生成锚点（如 `<h2>` 标签）。通常，标题的级别从 1 开始，`level: 2` 表示为所有 2 级及以上标题生成锚点。
+    collisionSuffix: ""                 # 如果多个标题的锚点链接相同（例如标题文本相同），此选项控制如何避免冲突。默认为空，表示不添加任何后缀（你可以设置为数字后缀如 `-1`, `-2` 等）。
+    permalink: false                    # 是否为每个标题生成永久链接。设置为 `false` 表示不生成锚点链接。如果设置为 `true`，则每个标题将拥有一个对应的可点击的锚点。
+    permalinkClass: "header-anchor"     # 为每个标题的锚点链接添加 CSS 类。这里设置为 `header-anchor`，你可以使用该类来定制锚点的样式。
+    permalinkSide: "left"               # 设置锚点链接显示的位置。`left` 表示链接显示在标题的左边，`right` 则显示在右边。
+    permalinkSymbol: "¶"               # 设置锚点链接的符号，这里使用 `¶` 符号表示，通常用于表示段落的标记。你可以根据需要更换为其他符号。
+    case: 0                             # 控制锚点文本的大小写。`0` 表示不修改大小写，`1` 表示转换为小写，`2` 表示转换为大写。
+    separator: "-"                      # 设置锚点生成时，标题中的空格或特殊字符如何替换，默认为 `-`，即空格会被替换成破折号（例如 `My Title` 会变成 `my-title`）。
+
