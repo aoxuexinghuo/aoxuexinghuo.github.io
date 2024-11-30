@@ -1,0 +1,390 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "ParamAngleX",
+			"GroupId": "ParamGroup",
+			"Name": "角度 X"
+		},
+		{
+			"Id": "ParamAngleY",
+			"GroupId": "ParamGroup",
+			"Name": "角度 Y"
+		},
+		{
+			"Id": "ParamAngleZ",
+			"GroupId": "ParamGroup",
+			"Name": "角度 Z"
+		},
+		{
+			"Id": "ParamEyeLSmile",
+			"GroupId": "ParamGroup2",
+			"Name": "左眼　微笑"
+		},
+		{
+			"Id": "ParamEyeROpen",
+			"GroupId": "ParamGroup2",
+			"Name": "右眼 开闭"
+		},
+		{
+			"Id": "ParamEyeRSmile",
+			"GroupId": "ParamGroup2",
+			"Name": "右眼　微笑"
+		},
+		{
+			"Id": "ParamEyeBallX",
+			"GroupId": "ParamGroup2",
+			"Name": "眼珠 X"
+		},
+		{
+			"Id": "ParamEyeBallY",
+			"GroupId": "ParamGroup2",
+			"Name": "眼珠 Y"
+		},
+		{
+			"Id": "Param19",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼小花360°"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼眼珠变形X"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼住变形Y"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼珠旋转"
+		},
+		{
+			"Id": "Param10",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼小高光x"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼小高光y"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼小高光旋转"
+		},
+		{
+			"Id": "Param11",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼大睫毛变形"
+		},
+		{
+			"Id": "Param12",
+			"GroupId": "ParamGroup7",
+			"Name": "左眼大睫毛变形2"
+		},
+		{
+			"Id": "Param18",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼小花360°"
+		},
+		{
+			"Id": "ParamEyeLOpen",
+			"GroupId": "ParamGroup8",
+			"Name": "左眼　开闭"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼眼珠变形X"
+		},
+		{
+			"Id": "Param13",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼住变形Y"
+		},
+		{
+			"Id": "Param16",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼珠旋转"
+		},
+		{
+			"Id": "Param14",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼小高光X"
+		},
+		{
+			"Id": "Param15",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼小高光Y"
+		},
+		{
+			"Id": "Param17",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼小高光旋转"
+		},
+		{
+			"Id": "Param20",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼大睫毛变形1"
+		},
+		{
+			"Id": "Param21",
+			"GroupId": "ParamGroup8",
+			"Name": "右眼大睫毛变形2"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "ParamGroup6",
+			"Name": "文字显示"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "ParamGroup6",
+			"Name": "撒花花显示"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "ParamGroup6",
+			"Name": "腮红显示"
+		},
+		{
+			"Id": "ParamMouthForm",
+			"GroupId": "ParamGroup3",
+			"Name": "嘴　变形"
+		},
+		{
+			"Id": "ParamMouthOpenY",
+			"GroupId": "ParamGroup3",
+			"Name": "嘴　张开和闭合"
+		},
+		{
+			"Id": "ParamBodyAngleX",
+			"GroupId": "ParamGroup4",
+			"Name": "身体旋转　X"
+		},
+		{
+			"Id": "ParamBodyAngleY",
+			"GroupId": "ParamGroup4",
+			"Name": "身体旋转　Y"
+		},
+		{
+			"Id": "ParamBodyAngleZ",
+			"GroupId": "ParamGroup4",
+			"Name": "身体旋转　Z"
+		},
+		{
+			"Id": "Param26",
+			"GroupId": "ParamGroup10",
+			"Name": "尾巴抖动"
+		},
+		{
+			"Id": "Param27",
+			"GroupId": "ParamGroup10",
+			"Name": "尾巴抖动2"
+		},
+		{
+			"Id": "Param28",
+			"GroupId": "ParamGroup10",
+			"Name": "尾巴抖动3"
+		},
+		{
+			"Id": "Param30",
+			"GroupId": "ParamGroup5",
+			"Name": "花朵X"
+		},
+		{
+			"Id": "Param31",
+			"GroupId": "ParamGroup5",
+			"Name": "花朵Y"
+		},
+		{
+			"Id": "Param29",
+			"GroupId": "ParamGroup5",
+			"Name": "花朵转圈圈"
+		},
+		{
+			"Id": "Param32",
+			"GroupId": "ParamGroup11",
+			"Name": "花朵X"
+		},
+		{
+			"Id": "Param33",
+			"GroupId": "ParamGroup11",
+			"Name": "花朵Y"
+		},
+		{
+			"Id": "Param34",
+			"GroupId": "ParamGroup11",
+			"Name": "花朵3"
+		},
+		{
+			"Id": "Param35",
+			"GroupId": "ParamGroup11",
+			"Name": "花蕊"
+		},
+		{
+			"Id": "Param22",
+			"GroupId": "ParamGroup9",
+			"Name": "耳朵左1"
+		},
+		{
+			"Id": "Param23",
+			"GroupId": "ParamGroup9",
+			"Name": "耳朵左2"
+		},
+		{
+			"Id": "Param25",
+			"GroupId": "ParamGroup9",
+			"Name": "耳朵右1"
+		},
+		{
+			"Id": "Param24",
+			"GroupId": "ParamGroup9",
+			"Name": "耳朵右2"
+		},
+		{
+			"Id": "ParamCheek",
+			"GroupId": "",
+			"Name": "脸颊泛红"
+		},
+		{
+			"Id": "ParamBreath",
+			"GroupId": "",
+			"Name": "呼吸"
+		},
+		{
+			"Id": "ParamHairFront",
+			"GroupId": "",
+			"Name": "摇动 睫毛"
+		},
+		{
+			"Id": "ParamHairSide",
+			"GroupId": "",
+			"Name": "摇动 侧耳"
+		},
+		{
+			"Id": "ParamHairBack",
+			"GroupId": "",
+			"Name": "摇动 花朵"
+		}
+	],
+	"ParameterGroups": [
+		{
+			"Id": "ParamGroup",
+			"GroupId": "",
+			"Name": "角度xyz"
+		},
+		{
+			"Id": "ParamGroup2",
+			"GroupId": "",
+			"Name": "眼睛"
+		},
+		{
+			"Id": "ParamGroup7",
+			"GroupId": "",
+			"Name": "左眼"
+		},
+		{
+			"Id": "ParamGroup8",
+			"GroupId": "",
+			"Name": "右眼"
+		},
+		{
+			"Id": "ParamGroup6",
+			"GroupId": "",
+			"Name": "配件显隐"
+		},
+		{
+			"Id": "ParamGroup3",
+			"GroupId": "",
+			"Name": "嘴巴"
+		},
+		{
+			"Id": "ParamGroup4",
+			"GroupId": "",
+			"Name": "身体xyz"
+		},
+		{
+			"Id": "ParamGroup10",
+			"GroupId": "",
+			"Name": "尾巴"
+		},
+		{
+			"Id": "ParamGroup5",
+			"GroupId": "",
+			"Name": "花朵小心情"
+		},
+		{
+			"Id": "ParamGroup11",
+			"GroupId": "",
+			"Name": "花朵+手部"
+		},
+		{
+			"Id": "ParamGroup9",
+			"GroupId": "",
+			"Name": "耳朵抖动"
+		}
+	],
+	"Parts": [
+		{
+			"Id": "Part",
+			"Name": "配件"
+		},
+		{
+			"Id": "Part2",
+			"Name": "双手"
+		},
+		{
+			"Id": "Part3",
+			"Name": "花"
+		},
+		{
+			"Id": "Part4",
+			"Name": "头"
+		},
+		{
+			"Id": "Part12",
+			"Name": "身体"
+		},
+		{
+			"Id": "Part5",
+			"Name": "双眼"
+		},
+		{
+			"Id": "Part8",
+			"Name": "嘴巴"
+		},
+		{
+			"Id": "Part9",
+			"Name": "右耳"
+		},
+		{
+			"Id": "Part10",
+			"Name": "左耳"
+		},
+		{
+			"Id": "Part11",
+			"Name": "脸"
+		},
+		{
+			"Id": "Part13",
+			"Name": "脖子"
+		},
+		{
+			"Id": "Part14",
+			"Name": "下体"
+		},
+		{
+			"Id": "Part6",
+			"Name": "右眼"
+		},
+		{
+			"Id": "Part7",
+			"Name": "左眼"
+		}
+	]
+}
