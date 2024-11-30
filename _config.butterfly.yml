@@ -1022,7 +1022,8 @@ pjax:
   enable: true
   # Exclude the specified pages from pjax, such as '/music/'
   exclude:
-    # - /xxxxxx/
+     - /
+#     - /about/
 
 # Inject the css and script (aplayer/meting)
 aplayerInject:
@@ -1056,7 +1057,7 @@ lazyload:
   enable: true
   # Specify the field to use lazyload (site or post)
   field: site
-  placeholder:
+  placeholder: https://bu.dusays.com/2024/11/28/6748473533994.jpeg
   blur: false
 
 # PWA
