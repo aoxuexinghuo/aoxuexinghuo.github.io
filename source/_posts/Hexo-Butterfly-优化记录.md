@@ -193,7 +193,15 @@ npm i markdown-it-mathjax3
 
 在主题配置文件中对Math部分进行相关配置，选择启用mathjax，并自行选择其他个性化调整。
 
+统统加进去，我可以不用，但不能没有（
 
+## 14.导航栏取消文章标题显示
+
+我的文章标题都很长，放在导航栏上很丑，还会和其他部件重叠，因此想要关掉。
+
+实现方法也很简单，把`themes/butterfly/layout/includes/header/nav.pug`文件中的`span.site-name=(page.title || config.title)`修改成`span.site-name=(config.title)`。
+
+即取消对文章标题的判断，直接显示博客的标题。
 
 
 
