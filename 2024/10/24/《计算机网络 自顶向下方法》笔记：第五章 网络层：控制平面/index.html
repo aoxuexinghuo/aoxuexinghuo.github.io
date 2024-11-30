@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面 | ℡傲雪&amp;星火ぴ</title><meta name="author" content="℡傲雪&amp;星火ぴ"><meta name="copyright" content="℡傲雪&amp;星火ぴ"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、概述1.传统方式与SDN方式在上一章的学习里我们了解到转发表（基于目的的转发）和流表（通用转发）是链接网络层的数据平面和控制平面的首要元素。这些表定义了一台路由器的本地数据平面转发行为，而在通用转发下，所采取的动作还包括丢弃一个分组、复制一个分组和重写第2、3或4层分组首部字段。 在本章中，我们将关注这些转发表和流表是如何计算、维护和安装的。实际上我们已经了解到在传统方式下和 SDN 方式下完">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面 | ℡傲雪&amp;星火ぴ</title><meta name="author" content="℡傲雪&amp;星火ぴ"><meta name="copyright" content="℡傲雪&amp;星火ぴ"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、概述 1.传统方式与SDN方式 在上一章的学习里我们了解到转发表（基于目的的转发）和流表（通用转发）是链接网络层的数据平面和控制平面的首要元素。这些表定义了一台路由器的本地数据平面转发行为，而在通用转发下，所采取的动作还包括丢弃一个分组、复制一个分组和重写第2、3或4层分组首部字段。 在本章中，我们将关注这些转发表和流表是如何计算、维护和安装的。实际上我们已经了解到在传统方式下和 SDN 方式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面">
 <meta property="og:url" content="https://aoxuexinghuo.github.io/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/index.html">
 <meta property="og:site_name" content="℡傲雪&amp;星火ぴ">
-<meta property="og:description" content="一、概述1.传统方式与SDN方式在上一章的学习里我们了解到转发表（基于目的的转发）和流表（通用转发）是链接网络层的数据平面和控制平面的首要元素。这些表定义了一台路由器的本地数据平面转发行为，而在通用转发下，所采取的动作还包括丢弃一个分组、复制一个分组和重写第2、3或4层分组首部字段。 在本章中，我们将关注这些转发表和流表是如何计算、维护和安装的。实际上我们已经了解到在传统方式下和 SDN 方式下完">
+<meta property="og:description" content="一、概述 1.传统方式与SDN方式 在上一章的学习里我们了解到转发表（基于目的的转发）和流表（通用转发）是链接网络层的数据平面和控制平面的首要元素。这些表定义了一台路由器的本地数据平面转发行为，而在通用转发下，所采取的动作还包括丢弃一个分组、复制一个分组和重写第2、3或4层分组首部字段。 在本章中，我们将关注这些转发表和流表是如何计算、维护和安装的。实际上我们已经了解到在传统方式下和 SDN 方式">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://bu.dusays.com/2024/11/27/6746e05871049.jpg">
 <meta property="article:published_time" content="2024-10-24T02:05:22.000Z">
-<meta property="article:modified_time" content="2024-11-30T02:32:20.063Z">
+<meta property="article:modified_time" content="2024-11-30T03:29:55.187Z">
 <meta property="article:author" content="℡傲雪&amp;星火ぴ">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="计算机网络">
@@ -107,7 +107,7 @@
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: undefined,
-  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":150,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
     error: '复制失败',
@@ -163,248 +163,373 @@ window.addEventListener('load',()=> { preloader.endLoading() })
 if (false) {
   document.addEventListener('pjax:send', () => { preloader.initLoading() })
   document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><div id="web_bg" style="background-image: url(https://bu.dusays.com/2024/11/27/6746de97857ae.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://bu.dusays.com/2024/11/28/6747d82900e41.jpg" onerror="onerror=null;src='https://bu.dusays.com/2024/11/28/6748473533994.jpeg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://bu.dusays.com/2024/11/27/6746e05871049.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">℡傲雪&amp;星火ぴ</span></a><a class="nav-page-title" href="/"><span class="site-name">《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><!--span= ' ' + _p('search.title')--></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-24T02:05:22.000Z" title="发表于 2024-10-24 10:05:22">2024-10-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-30T02:32:20.063Z" title="更新于 2024-11-30 10:32:20">2024-11-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">7.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>25分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="1-传统方式与SDN方式"><a href="#1-传统方式与SDN方式" class="headerlink" title="1.传统方式与SDN方式"></a>1.传统方式与SDN方式</h3><p>在上一章的学习里我们了解到转发表（基于目的的转发）和流表（通用转发）是链接网络层的数据平面和控制平面的首要元素。这些表定义了一台路由器的本地数据平面转发行为，而在通用转发下，所采取的动作还包括丢弃一个分组、复制一个分组和重写第2、3或4层分组首部字段。</p>
+}</script><div id="web_bg" style="background-image: url(https://bu.dusays.com/2024/11/27/6746de97857ae.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://bu.dusays.com/2024/11/28/6747d82900e41.jpg" onerror="onerror=null;src='https://bu.dusays.com/2024/11/28/6748473533994.jpeg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://bu.dusays.com/2024/11/27/6746e05871049.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">℡傲雪&amp;星火ぴ</span></a><a class="nav-page-title" href="/"><span class="site-name">《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><!--span= ' ' + _p('search.title')--></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 文章</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-24T02:05:22.000Z" title="发表于 2024-10-24 10:05:22">2024-10-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-30T03:29:55.187Z" title="更新于 2024-11-30 11:29:55">2024-11-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">7.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>25分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="一、概述">一、概述</h2>
+<h3 id="1-传统方式与SDN方式">1.传统方式与SDN方式</h3>
+<p>在上一章的学习里我们了解到转发表（基于目的的转发）和流表（通用转发）是链接网络层的数据平面和控制平面的首要元素。这些表定义了一台路由器的本地数据平面转发行为，而在通用转发下，所采取的动作还包括丢弃一个分组、复制一个分组和重写第2、3或4层分组首部字段。</p>
 <p>在本章中，我们将关注这些转发表和流表是如何计算、维护和安装的。实际上我们已经了解到在传统方式下和 SDN 方式下完成这些工作的两种方法，前者是由每个路由器完成，后者则是远程集中控制路由，路由器仅执行转发功能（当然还包括流表支持的一些其他动作，这些其他的动作以前都是由单独的中间盒实现的）。</p>
 <p>我们可以根据下面两张图来回忆一下两种方式的区别：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d1da10d4.png" alt="1"></p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d285f5ef.png" alt="2"></p>
-<h3 id="2-传统方式的路由机制"><a href="#2-传统方式的路由机制" class="headerlink" title="2.传统方式的路由机制"></a>2.传统方式的路由机制</h3><p>而传统方式（区别于SDN）的路由机制又分为两个级别：<strong>内部网关协议（IGP，Interior Gateway Protocol）</strong> 和<strong>外部网关协议（EGP, Exterior Gateway Protocol）</strong>。它们承担不同范围内的路由任务，以确保数据包能够从源节点到达目标节点。</p>
+<h3 id="2-传统方式的路由机制">2.传统方式的路由机制</h3>
+<p>而传统方式（区别于SDN）的路由机制又分为两个级别：<strong>内部网关协议（IGP，Interior Gateway Protocol）</strong> 和<strong>外部网关协议（EGP, Exterior Gateway Protocol）</strong>。它们承担不同范围内的路由任务，以确保数据包能够从源节点到达目标节点。</p>
 <p><strong>内部网关协议IGP</strong>用于自治系统（AS，Autonomous System）内部的路由，自治系统是由单一结构控制的一组路由器和网络。常见的IGP协议有：OSPF、RIP等。</p>
 <p><strong>外部网关协议EGP</strong>用于自制系统之间的路由（如互联网服务提供商ISP之间的路由），EGP确保来自一个AS的数据能够正确传递到其他AS。常见的EGP协议有：<strong>BGP（Border Gateway Protocol）</strong>。BGP是目前互联网的核心路由协议，负责管理AS之间的路由。</p>
-<h2 id="二、路由选择算法"><a href="#二、路由选择算法" class="headerlink" title="二、路由选择算法"></a>二、路由选择算法</h2><h3 id="1-前置信息"><a href="#1-前置信息" class="headerlink" title="1.前置信息"></a>1.前置信息</h3><p><strong>路由</strong>：按照某种指标（传输延时，所经过的站点数据等）找到一条从源节点到目标节点的较好的路径。</p>
+<h2 id="二、路由选择算法">二、路由选择算法</h2>
+<h3 id="1-前置信息">1.前置信息</h3>
+<p><strong>路由</strong>：按照某种指标（传输延时，所经过的站点数据等）找到一条从源节点到目标节点的较好的路径。</p>
 <p>路由是以网络为单位进行的，这样路由信息传输、计算和匹配的代价更低。</p>
 <p>路由选择算法是网络层的重要组成部分，用于完成路由功能，遵循以下原则：</p>
-<ul>
-<li>正确性（correctness）：算法必须是正确和完整的。</li>
-<li>简单性（simplicity）：最优但复杂的算法，时间上延迟很大，不能为了获取路由信息而增加很多通信量。</li>
-<li>健壮性（robustness）：算法能够适应通信量和网络拓扑的变化（究竟是谁把这个词翻译成鲁棒性的）。</li>
-<li>稳定性（stability）：产生的路由不应该摇摆。</li>
-<li>公平性（fairness）：对每一个站点都公平</li>
-<li>最优性（optimality）：某一个指标的最优，可以是时间、费用或综合指标等（实际上，获取最优的结果代价较高，一般是次优的）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>正确性（correctness）：算法必须是正确和完整的。</p>
+</li>
+<li class="lvl-2">
+<p>简单性（simplicity）：最优但复杂的算法，时间上延迟很大，不能为了获取路由信息而增加很多通信量。</p>
+</li>
+<li class="lvl-2">
+<p>健壮性（robustness）：算法能够适应通信量和网络拓扑的变化（究竟是谁把这个词翻译成鲁棒性的）。</p>
+</li>
+<li class="lvl-2">
+<p>稳定性（stability）：产生的路由不应该摇摆。</p>
+</li>
+<li class="lvl-2">
+<p>公平性（fairness）：对每一个站点都公平</p>
+</li>
+<li class="lvl-2">
+<p>最优性（optimality）：某一个指标的最优，可以是时间、费用或综合指标等（实际上，获取最优的结果代价较高，一般是次优的）。</p>
+</li>
 </ul>
 <p>路由选择算法可以分为<strong>集中式路由选择算法（centralized routing algorithm）</strong> 和 <strong>分散式路由选择算法（decentralized routing algorithm）</strong>：</p>
-<ul>
-<li><strong>集中式路由选择算法</strong>：所有的路由都拥有完整的拓扑和边的代价的信息，这样的算法被称作<strong>链路状态（Link State，LS）算法</strong>。</li>
-<li><strong>分散式路由选择算法</strong>：路由器只知道与它有物理连接关系的邻居路由器，和到相应邻居路由器的代价，通过迭代计算过程以及与相邻节点的信息交换，一个节点逐渐计算出到达某目的节点或一组目的节点的最低开销路径，这样的算法被称为<strong>距离向量（Distance-Vector，DV）算法</strong>。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>集中式路由选择算法</strong>：所有的路由都拥有完整的拓扑和边的代价的信息，这样的算法被称作<strong>链路状态（Link State，LS）算法</strong>。</p>
+</li>
+<li class="lvl-2">
+<p><strong>分散式路由选择算法</strong>：路由器只知道与它有物理连接关系的邻居路由器，和到相应邻居路由器的代价，通过迭代计算过程以及与相邻节点的信息交换，一个节点逐渐计算出到达某目的节点或一组目的节点的最低开销路径，这样的算法被称为<strong>距离向量（Distance-Vector，DV）算法</strong>。</p>
+</li>
 </ul>
 <p>路由选择算法的第二种分类方式是根据算法是静态的还是动态度进行分类。在<strong>静态路由选择算法（static routing algorithm）</strong> 中，路由随时间的变化非常缓慢，通常是人工进行调整；在<strong>动态路由选择算法（dynamic routing algorithm）</strong> 中，会随着网络流量负载或拓扑发生变化而改变路由选择路径。</p>
 <p>路由选择算法的第三种分类方式是根据它是负载敏感的还是负载迟钝的进行划分。在<strong>负载敏感算法（load-sensitive algorithm）</strong> 中，链路开销会动态地变化以反映出底层链路的当前拥塞水平。如果当前拥塞的一条链路与高开销相联系，则路由选择算法趋向于绕开该拥塞链路来选择路由。而但如今的因特网路由算法（RIP、OSPF和BGP）都是<strong>负载迟钝（load-insensitive）</strong> 的，因为某条链路的开销并不能明确地反映拥塞水平。</p>
-<h3 id="2-链路状态路由选择算法"><a href="#2-链路状态路由选择算法" class="headerlink" title="2.链路状态路由选择算法"></a>2.链路状态路由选择算法</h3><h4 id="（1）实现方式"><a href="#（1）实现方式" class="headerlink" title="（1）实现方式"></a>（1）实现方式</h4><p>在LS算法中，网络拓扑和链路开销都是已知的，基于这些信息，使用<strong>Dijkstra算法</strong>计算出最短路径，从而得到路由表。</p>
+<h3 id="2-链路状态路由选择算法">2.链路状态路由选择算法</h3>
+<h4 id="（1）实现方式">（1）实现方式</h4>
+<p>在LS算法中，网络拓扑和链路开销都是已知的，基于这些信息，使用<strong>Dijkstra算法</strong>计算出最短路径，从而得到路由表。</p>
 <p>具体工作流程为：</p>
 <ol>
-<li>发现相邻节点，获取对方网络地址</li>
-<li>检测到相邻节点的代价（延迟、开销）</li>
-<li>组装一个LS分组，描述它到相邻节点的代价情况</li>
-<li>将分组通过洪泛的方式发到所有其他路由器</li>
-<li>通过Dijkstra算法找出最短路径</li>
+<li class="lvl-3">
+<p>发现相邻节点，获取对方网络地址</p>
+</li>
+<li class="lvl-3">
+<p>检测到相邻节点的代价（延迟、开销）</p>
+</li>
+<li class="lvl-3">
+<p>组装一个LS分组，描述它到相邻节点的代价情况</p>
+</li>
+<li class="lvl-3">
+<p>将分组通过洪泛的方式发到所有其他路由器</p>
+</li>
+<li class="lvl-3">
+<p>通过Dijkstra算法找出最短路径</p>
+</li>
 </ol>
 <p>前四步都是为了让每个路由器获得拓扑和边代价，最后一步才是路由算法。其中第四步会有一些限制方式防止分组无穷地扩散：</p>
-<ul>
-<li>顺序号（Sequence Number）：每个LS分组都带有一个顺序号，表示该分组的版本，而路由器会记录（源路由器，顺序号）的组合，当收到重复或者老版本的分组后，直接丢弃不在转发。</li>
-<li>年龄字段（Age）：生成一个分组是，为其设置一个不为0的年龄字段，每过一个时间段（不是跳数）年龄字段就减1，年龄字段为0的分组将被抛弃。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>顺序号（Sequence Number）：每个LS分组都带有一个顺序号，表示该分组的版本，而路由器会记录（源路由器，顺序号）的组合，当收到重复或者老版本的分组后，直接丢弃不在转发。</p>
+</li>
+<li class="lvl-2">
+<p>年龄字段（Age）：生成一个分组是，为其设置一个不为0的年龄字段，每过一个时间段（不是跳数）年龄字段就减1，年龄字段为0的分组将被抛弃。</p>
+</li>
 </ul>
-<h4 id="（2）Dijkstra算法"><a href="#（2）Dijkstra算法" class="headerlink" title="（2）Dijkstra算法"></a>（2）Dijkstra算法</h4><p><strong>Dijkstra算法</strong>是一种用于计算单源最短路径的经典算法，能够找到从某个节点到其他所有节点的最短路径。</p>
+<h4 id="（2）Dijkstra算法">（2）Dijkstra算法</h4>
+<p><strong>Dijkstra算法</strong>是一种用于计算单源最短路径的经典算法，能够找到从某个节点到其他所有节点的最短路径。</p>
 <p>算法的核心思想是：从源节点开始，每次选择当前路径开销最小的节点，并更新与其相邻节点的距离，直到所有节点都被访问完毕。</p>
 <p>我们以下图为例使用Dijkstra算法计算从 <strong>u</strong> 到达其他其他所有可能目的地的最低开销路径：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d35bd227.png" alt="3"></p>
 <table>
 <thead>
 <tr>
-<th align="center">步骤</th>
-<th align="center">N’</th>
-<th align="center">D(v), p(v)</th>
-<th align="center">D(w), p(w)</th>
-<th align="center">D(x), p(x)</th>
-<th align="center">D(y), p(y)</th>
-<th align="center">D(z), p(z)</th>
+<th style="text-align:center">步骤</th>
+<th style="text-align:center">N'</th>
+<th style="text-align:center">D(v), p(v)</th>
+<th style="text-align:center">D(w), p(w)</th>
+<th style="text-align:center">D(x), p(x)</th>
+<th style="text-align:center">D(y), p(y)</th>
+<th style="text-align:center">D(z), p(z)</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">u</td>
-<td align="center">2, u</td>
-<td align="center">5, u</td>
-<td align="center">1, u</td>
-<td align="center">∞</td>
-<td align="center">∞</td>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">u</td>
+<td style="text-align:center">2, u</td>
+<td style="text-align:center">5, u</td>
+<td style="text-align:center">1, u</td>
+<td style="text-align:center">∞</td>
+<td style="text-align:center">∞</td>
 </tr>
 <tr>
-<td align="center">1</td>
-<td align="center">ux</td>
-<td align="center">2, u</td>
-<td align="center">4, x</td>
-<td align="center"></td>
-<td align="center">2, x</td>
-<td align="center">∞</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">ux</td>
+<td style="text-align:center">2, u</td>
+<td style="text-align:center">4, x</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2, x</td>
+<td style="text-align:center">∞</td>
 </tr>
 <tr>
-<td align="center">2</td>
-<td align="center">uxy</td>
-<td align="center">2, u</td>
-<td align="center">3, y</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">4, y</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">uxy</td>
+<td style="text-align:center">2, u</td>
+<td style="text-align:center">3, y</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">4, y</td>
 </tr>
 <tr>
-<td align="center">3</td>
-<td align="center">uxyv</td>
-<td align="center"></td>
-<td align="center">3, y</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">4, y</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">uxyv</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">3, y</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">4, y</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td align="center">uxyvw</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">4, y</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">uxyvw</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">4, y</td>
 </tr>
 <tr>
-<td align="center">5</td>
-<td align="center">uxyvwz</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">uxyvwz</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
 </tr>
-</tbody></table>
-<p>上表中，N’表示确定的最短路径的点；D()表示目前已知的从u点到该点的最短路径长度；P()表示在已知最短路径下，该点的上一跳的位置。</p>
-<ul>
-<li><p>初始状态下，已知u距离本身的最短路径为零，将u放入N’中。与u直连的v，w，x到达u的距离分别为2、5、1，他们的上一跳均为u。不与u直连的点，D()暂且置为∞。</p>
+</tbody>
+</table>
+<p>上表中，N'表示确定的最短路径的点；D()表示目前已知的从u点到该点的最短路径长度；P()表示在已知最短路径下，该点的上一跳的位置。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>初始状态下，已知u距离本身的最短路径为零，将u放入N'中。与u直连的v，w，x到达u的距离分别为2、5、1，他们的上一跳均为u。不与u直连的点，D()暂且置为∞。</p>
 </li>
-<li><p>第1步，观察还未加入N’中的点，选取D()值最小的点，将其加入N’。这里D(x)&#x3D;1最小，我们将x加入N’里。然后观察与x直连的点有v、w、y（排除已经加入N’的点）。如果以x作为终点的上一跳，源点达到这三个点的最短路径为D’(v)&#x3D;D(x)+2&#x3D;3、D’(w)&#x3D;D(x)+3&#x3D;4、D’(y)&#x3D;D(x)+1&#x3D;2，将得到的新值与原有的D(v)、D(w)、D(y)进行比较，发现D’(w)小于D(w)，因此我们把D(w)的值更新为4，p(w)更新为x；D’(y)小于D(y)，因此我们把D(y)的值更新为2，p(y)更新为x。</p>
+<li class="lvl-2">
+<p>第1步，观察还未加入N'中的点，选取D()值最小的点，将其加入N'。这里D(x)=1最小，我们将x加入N'里。然后观察与x直连的点有v、w、y（排除已经加入N'的点）。如果以x作为终点的上一跳，源点达到这三个点的最短路径为D'(v)=D(x)+2=3、D'(w)=D(x)+3=4、D'(y)=D(x)+1=2，将得到的新值与原有的D(v)、D(w)、D(y)进行比较，发现D'(w)小于D(w)，因此我们把D(w)的值更新为4，p(w)更新为x；D'(y)小于D(y)，因此我们把D(y)的值更新为2，p(y)更新为x。</p>
 </li>
-<li><p>第2步，观察还未加入N’中的点，选取D()值最小的点，将其加入N’。我们发现D(v)&#x3D;D(y)&#x3D;2，两者均为最小值，我们任选其一即可。这里选择先将y加入N’里。然后观察与y直连的点有w和z。如果以y作为终点的上一跳，源点达到这两个点的最短路径为D’(w)&#x3D;D(y)+1&#x3D;3、D’(z)&#x3D;D(y)+2&#x3D;4，我们将得到的新值与原有的D(w)、D(z)进行比较，发现D’(w)小于D(w)，因此我们把D(w)的值更新为3，p(w)更新为y；D’(z)小于D(z)，因此我们把D(z)的值更新为4，p(z)更新为y。</p>
+<li class="lvl-2">
+<p>第2步，观察还未加入N'中的点，选取D()值最小的点，将其加入N'。我们发现D(v)=D(y)=2，两者均为最小值，我们任选其一即可。这里选择先将y加入N'里。然后观察与y直连的点有w和z。如果以y作为终点的上一跳，源点达到这两个点的最短路径为D'(w)=D(y)+1=3、D'(z)=D(y)+2=4，我们将得到的新值与原有的D(w)、D(z)进行比较，发现D'(w)小于D(w)，因此我们把D(w)的值更新为3，p(w)更新为y；D'(z)小于D(z)，因此我们把D(z)的值更新为4，p(z)更新为y。</p>
 </li>
-<li><p>第3步，观察还未加入N’中的点，选取D()值最小的点，将其加入N’。这里D(v)&#x3D;2最小，我们将v加入N’里。然后观察与v直连的点有w。如果以v作为终点的上一跳，源点到达w的最短路径为D’(w)&#x3D;D(v)+3&#x3D;5。D’(w)大于D(w)，不做处理（如果相等，也不做处理）。</p>
+<li class="lvl-2">
+<p>第3步，观察还未加入N'中的点，选取D()值最小的点，将其加入N'。这里D(v)=2最小，我们将v加入N'里。然后观察与v直连的点有w。如果以v作为终点的上一跳，源点到达w的最短路径为D'(w)=D(v)+3=5。D'(w)大于D(w)，不做处理（如果相等，也不做处理）。</p>
 </li>
-<li><p>第4步，观察还未加入N’中的点，选取D()值最小的点，将其加入N’。这里D(w)&#x3D;3最小，我们将w加入N’里。然后观察与w直连的点有z。如果以w作为终点的上一跳，源点达到z的最短路径为D’(z)&#x3D;D(w)+5&#x3D;8。D’(z)大于D(z)，不做处理。</p>
+<li class="lvl-2">
+<p>第4步，观察还未加入N'中的点，选取D()值最小的点，将其加入N'。这里D(w)=3最小，我们将w加入N'里。然后观察与w直连的点有z。如果以w作为终点的上一跳，源点达到z的最短路径为D'(z)=D(w)+5=8。D'(z)大于D(z)，不做处理。</p>
 </li>
-<li><p>第5步，此时仅剩余z点，直接将z点加入N’里，得到最终的结果</p>
+<li class="lvl-2">
+<p>第5步，此时仅剩余z点，直接将z点加入N'里，得到最终的结果</p>
 </li>
 </ul>
-<p>Dijkstra算法在最坏情况下，每一次迭代都要检查所有不在N’中的点，所以要进行：<br>$$<br>(n - 1) + (n - 2) + \cdots + 1 &#x3D; \frac{(n - 1) n}{2}<br>$$<br>次比较，算法的时间复杂度为：**O(n^2 )**。</p>
-<p>借助优先队列（通常使用最小堆）可帮助快速找到当前距离最小的节点并更新邻接节点的最短路径，从而将复杂度降低为**O(nlogn)**。对于每个节点从优先队列入队和出队的复杂度为O（logn），一共涉及n个节点，因此为O(nlogn)。</p>
-<h4 id="（3）路由选择的震荡"><a href="#（3）路由选择的震荡" class="headerlink" title="（3）路由选择的震荡"></a>（3）路由选择的震荡</h4><p>我们以下图为例解释路由选择的震荡：</p>
+<p>Dijkstra算法在最坏情况下，每一次迭代都要检查所有不在N'中的点，所以要进行：</p>
+<mjx-container class="MathJax" jax="SVG" display="true" style="direction: ltr; display: block; text-align: center; margin: 1em 0; position: relative;"><svg style="overflow: visible; min-height: 1px; min-width: 1px; vertical-align: -1.552ex;" xmlns="http://www.w3.org/2000/svg" width="38.494ex" height="4.855ex" role="img" focusable="false" viewBox="0 -1460 17014.2 2146" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(1211.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mn" transform="translate(2211.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(2711.4,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(3322.7,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(4322.9,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(4711.9,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(5534.1,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mn" transform="translate(6534.3,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(7034.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(7645.6,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(8645.8,0)"><path data-c="22EF" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250ZM525 250Q525 274 542 292T585 310Q609 310 627 294T646 251Q646 226 629 208T586 190T543 207T525 250ZM972 250Q972 274 989 292T1032 310Q1056 310 1074 294T1093 251Q1093 226 1076 208T1033 190T990 207T972 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(10040,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mn" transform="translate(11040.2,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(11818,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" style="stroke-width: 3;"/></g><g data-mml-node="mfrac" transform="translate(12873.8,0)"><g data-mml-node="mrow" transform="translate(220,710)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(1211.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mn" transform="translate(2211.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(2711.4,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(3100.4,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g></g><g data-mml-node="mn" transform="translate(1820.2,-686)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" style="stroke-width: 3;"/></g><rect width="3900.4" height="60" x="120" y="220"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block" style="top: 0px; left: 0px; clip: rect(1px, 1px, 1px, 1px); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; padding: 1px 0px 0px 0px; border: 0px; display: block; overflow: hidden; width: 100%;"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mo>⋯</mo><mo>+</mo><mn>1</mn><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mi>n</mi></mrow><mn>2</mn></mfrac></math></mjx-assistive-mml></mjx-container><p>次比较，算法的时间复杂度为：<strong>O(n^2 )</strong>。</p>
+<p>借助优先队列（通常使用最小堆）可帮助快速找到当前距离最小的节点并更新邻接节点的最短路径，从而将复杂度降低为<strong>O(nlogn)</strong>。对于每个节点从优先队列入队和出队的复杂度为O（logn），一共涉及n个节点，因此为O(nlogn)。</p>
+<h4 id="（3）路由选择的震荡">（3）路由选择的震荡</h4>
+<p>我们以下图为例解释路由选择的震荡：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d4109207.png" alt="4"></p>
 <p>已知链路的开销是非对称的，也就是说从v到u的代价与从u到v的代价不一定相同。初始状态如图a所示，z顺时针向w发送一个单位的流量；x逆时针向w发送一个单位的流量；y逆时针向w发送大小为e的流量。</p>
 <p>当LS算法再次运行时，y发现顺时针到w的开销为1，逆时针到w的开销为1+e，于是选择改为顺时针发送。而x样发现了顺时针的开销更小，选择顺时针发送。于是变成了图b的状态。</p>
 <p>当LS算法下次运行时，x、y、z又都被引导到了逆时针的方向，变成了图c的状态。</p>
 <p>当LS算法再下次运行时，x、y、z又都被引导到了顺时针的方向，变成了图d的状态。</p>
 <p>为了防止路由震荡，我们可以确保不是所有的路由器都同时运行链路状态（LS）算法。</p>
-<h3 id="3-距离向量路由选择算法"><a href="#3-距离向量路由选择算法" class="headerlink" title="3.距离向量路由选择算法"></a>3.距离向量路由选择算法</h3><h4 id="（1）实现方式-1"><a href="#（1）实现方式-1" class="headerlink" title="（1）实现方式"></a>（1）实现方式</h4><p>DV算法的基本思想是：</p>
-<ul>
-<li>各路由器维护一张路由表，表项包括目标点，下一跳以及到达目标点所需的代价；</li>
-<li>各路由器与相邻的路由器交换路由表； </li>
-<li>根据获得的路由信息，更新路由表；</li>
+<h3 id="3-距离向量路由选择算法">3.距离向量路由选择算法</h3>
+<h4 id="（1）实现方式-2">（1）实现方式</h4>
+<p>DV算法的基本思想是：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>各路由器维护一张路由表，表项包括目标点，下一跳以及到达目标点所需的代价；</p>
+</li>
+<li class="lvl-2">
+<p>各路由器与相邻的路由器交换路由表；</p>
+</li>
+<li class="lvl-2">
+<p>根据获得的路由信息，更新路由表；</p>
+</li>
 </ul>
 <blockquote>
 <p><strong>注意</strong>：路由表这三个表项的含义是，已知一条从自身到达目标点D的路径，该路径的代价为C，按照该路径行动时，源点的下一跳为N，则路由器会在路由表中记录下目标点D，下一跳N和代价C。如果在和相邻路由器交换信息的过程中发现了同目标代价更小的路径，则会按照同样的格式更新路由表。</p>
 </blockquote>
-<p>而最低开销路径的计算则要借助于著名的<strong>Bellman-Ford方程</strong>：<br>$$<br>d_x(y) &#x3D; min_{v} { c(x, v) + d_v(y) }<br>$$<br>方程中的min_v是对于x的所有邻居，c(x，y)表示从x到v的代价。d_v(y)表示从v到目标y的代价，d_x(y)表示从x到目标y的代价，让我们带着这个方程来观察下面这张图：</p>
+<p>而最低开销路径的计算则要借助于著名的<strong>Bellman-Ford方程</strong>：</p>
+<mjx-container class="MathJax" jax="SVG" display="true" style="direction: ltr; display: block; text-align: center; margin: 1em 0; position: relative;"><svg style="overflow: visible; min-height: 1px; min-width: 1px; vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="29.428ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 13007 1000" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(553,-150) scale(0.707)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z" style="stroke-width: 3;"/></g></g><g data-mml-node="mo" transform="translate(1007.5,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(1396.5,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(1886.5,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(2553.2,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(3609,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(4487,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="msub" transform="translate(4832,0)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="TeXAtom" transform="translate(633,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z" style="stroke-width: 3;"/></g></g></g><g data-mml-node="mo" transform="translate(5858,0)"><path data-c="7B" d="M434 -231Q434 -244 428 -250H410Q281 -250 230 -184Q225 -177 222 -172T217 -161T213 -148T211 -133T210 -111T209 -84T209 -47T209 0Q209 21 209 53Q208 142 204 153Q203 154 203 155Q189 191 153 211T82 231Q71 231 68 234T65 250T68 266T82 269Q116 269 152 289T203 345Q208 356 208 377T209 529V579Q209 634 215 656T244 698Q270 724 324 740Q361 748 377 749Q379 749 390 749T408 750H428Q434 744 434 732Q434 719 431 716Q429 713 415 713Q362 710 332 689T296 647Q291 634 291 499V417Q291 370 288 353T271 314Q240 271 184 255L170 250L184 245Q202 239 220 230T262 196T290 137Q291 131 291 1Q291 -134 296 -147Q306 -174 339 -192T415 -213Q429 -213 431 -216Q434 -219 434 -231Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(6358,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(6791,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(7180,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(7752,0)"><path data-c="2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(8196.6,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(8681.6,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(9292.9,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z" style="stroke-width: 3;"/></g><g data-mml-node="msub" transform="translate(10293.1,0)"><g data-mml-node="mi"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(553,-150) scale(0.707)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z" style="stroke-width: 3;"/></g></g><g data-mml-node="mo" transform="translate(11239,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z" style="stroke-width: 3;"/></g><g data-mml-node="mi" transform="translate(11628,0)"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(12118,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" style="stroke-width: 3;"/></g><g data-mml-node="mo" transform="translate(12507,0)"><path data-c="7D" d="M65 731Q65 745 68 747T88 750Q171 750 216 725T279 670Q288 649 289 635T291 501Q292 362 293 357Q306 312 345 291T417 269Q428 269 431 266T434 250T431 234T417 231Q380 231 345 210T298 157Q293 143 292 121T291 -28V-79Q291 -134 285 -156T256 -198Q202 -250 89 -250Q71 -250 68 -247T65 -230Q65 -224 65 -223T66 -218T69 -214T77 -213Q91 -213 108 -210T146 -200T183 -177T207 -139Q208 -134 209 3L210 139Q223 196 280 230Q315 247 330 250Q305 257 280 270Q225 304 212 352L210 362L209 498Q208 635 207 640Q195 680 154 696T77 713Q68 713 67 716T65 731Z" style="stroke-width: 3;"/></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block" style="top: 0px; left: 0px; clip: rect(1px, 1px, 1px, 1px); -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; position: absolute; padding: 1px 0px 0px 0px; border: 0px; display: block; overflow: hidden; width: 100%;"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>d</mi><mi>x</mi></msub><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>m</mi><mi>i</mi><msub><mi>n</mi><mrow data-mjx-texclass="ORD"><mi>v</mi></mrow></msub><mo fence="false" stretchy="false">{</mo><mi>c</mi><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>d</mi><mi>v</mi></msub><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo fence="false" stretchy="false">}</mo></math></mjx-assistive-mml></mjx-container><p>方程中的min_v是对于x的所有邻居，c(x，y)表示从x到v的代价。d_v(y)表示从v到目标y的代价，d_x(y)表示从x到目标y的代价，让我们带着这个方程来观察下面这张图：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d4b53eef.png" alt="5"></p>
-<ul>
-<li>以图中的节点J为例，J的相邻节点为A、I、H、K，然后J测得到这四个点的延迟分别为8ms、10ms、12ms、6ms；</li>
-<li>通过交换路由Bellman-Ford方程表，从A、I、H、K那里分别获得它们到达G的延迟为18ms、31ms、6ms、31ms；</li>
-<li>利用Bellman-Ford方程计算出J经过这四个点到达G的延迟分别为26ms、41ms、18ms、37ms，选择延迟最小的H点，18ms更新到自己的路由表中。</li>
-<li>计算其他目标点同理，但要注意排除自己本身J点（不然会计算出奇怪的东西doge）</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>以图中的节点J为例，J的相邻节点为A、I、H、K，然后J测得到这四个点的延迟分别为8ms、10ms、12ms、6ms；</p>
+</li>
+<li class="lvl-2">
+<p>通过交换路由Bellman-Ford方程表，从A、I、H、K那里分别获得它们到达G的延迟为18ms、31ms、6ms、31ms；</p>
+</li>
+<li class="lvl-2">
+<p>利用Bellman-Ford方程计算出J经过这四个点到达G的延迟分别为26ms、41ms、18ms、37ms，选择延迟最小的H点，18ms更新到自己的路由表中。</p>
+</li>
+<li class="lvl-2">
+<p>计算其他目标点同理，但要注意排除自己本身J点（不然会计算出奇怪的东西doge）</p>
+</li>
 </ul>
 <p>相较于集中式的LS算法，<strong>DV算法是一种迭代的、异步的和分布式的算法。</strong></p>
-<ul>
-<li>“分布式”是因为每个节点都要从一个或多个直接相连临节点接收某些信息，执行计算然后将计算结果分发给邻居；</li>
-<li>“迭代”是因为这个过程一直要持续到邻居之间无更多的信息要交换位置（此算法是自我终结的，即不需要外部的明确终止信号，当邻居之间没有更多的更新消息需要交换时，算法就会停止）；</li>
-<li>“异步”是因为它不要求所有的节点相互之间步伐一致地操作。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>“分布式”是因为每个节点都要从一个或多个直接相连临节点接收某些信息，执行计算然后将计算结果分发给邻居；</p>
+</li>
+<li class="lvl-2">
+<p>“迭代”是因为这个过程一直要持续到邻居之间无更多的信息要交换位置（此算法是自我终结的，即不需要外部的明确终止信号，当邻居之间没有更多的更新消息需要交换时，算法就会停止）；</p>
+</li>
+<li class="lvl-2">
+<p>“异步”是因为它不要求所有的节点相互之间步伐一致地操作。</p>
+</li>
 </ul>
 <p>每个节点会在<strong>等待</strong>、<strong>重新计算</strong>和<strong>通告</strong>这三种状态之间循环切换：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d55dd1ad.png" alt="6"></p>
-<h4 id="（2）DV的无穷计算问题"><a href="#（2）DV的无穷计算问题" class="headerlink" title="（2）DV的无穷计算问题"></a>（2）DV的无穷计算问题</h4><p><strong>DV具有好消息传的快，坏消息传的慢的特点。</strong></p>
+<h4 id="（2）DV的无穷计算问题">（2）DV的无穷计算问题</h4>
+<p><strong>DV具有好消息传的快，坏消息传的慢的特点。</strong></p>
 <p>好消息的传播以每一个交换周期前进一个路由器的速度进行：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d66e3ac6.png" alt="7"></p>
 <p>以上图为例，这里以跳数来代表代价，初始状态下A到其他点均不可达。然后我们连接A点和B点，这时B点的路由表上会更新出到达A点代价为1的一条路径。通过信息交换，C点从B点得到了这个信息，在自己的路由表上更新了到达A点代价为2的路径。然后按照这种方式再依次传递给D点，E点。</p>
 <p>而坏消息的传播速度就非常慢，存在<strong>路由选择环路（routing loop）</strong>：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d6f50a95.png" alt="8"></p>
-<p>以上图为例，初始状态下链路完整，节点下的数字代表其到A点的跳数。假设A到B的链路意外中断，此时B检测到A不可达，更新自己的路由表。然后在第一次信息交换后，C点向B点表示自己有一条代价为2的路径可达A点，于是B更新自己的路由表，将到达A的代价从无穷修改为2+1&#x3D;3（然而C点所谓的可达A点的路径，下一跳正是B点自己，憋笑.jpg）。于是B点认为A点可达，向A点发送信息时，选择C点作为下一跳，而C点记录的下一跳是B点，于是又将数据发回B点，就像这样形成了回路。只有当下一次信息交换时，各自再更新到达A点的代价为Min(left，right)+1，如此往复循环，无限次后，到达A的距离变为无穷大，不可达。</p>
-<h4 id="（3）水平分裂算法和毒性逆转"><a href="#（3）水平分裂算法和毒性逆转" class="headerlink" title="（3）水平分裂算法和毒性逆转"></a>（3）水平分裂算法和毒性逆转</h4><p><strong>水平分裂（split horizon）算法</strong>是一种对无穷计算问题的解决方法。</p>
+<p>以上图为例，初始状态下链路完整，节点下的数字代表其到A点的跳数。假设A到B的链路意外中断，此时B检测到A不可达，更新自己的路由表。然后在第一次信息交换后，C点向B点表示自己有一条代价为2的路径可达A点，于是B更新自己的路由表，将到达A的代价从无穷修改为2+1=3（然而C点所谓的可达A点的路径，下一跳正是B点自己，憋笑.jpg）。于是B点认为A点可达，向A点发送信息时，选择C点作为下一跳，而C点记录的下一跳是B点，于是又将数据发回B点，就像这样形成了回路。只有当下一次信息交换时，各自再更新到达A点的代价为Min(left，right)+1，如此往复循环，无限次后，到达A的距离变为无穷大，不可达。</p>
+<h4 id="（3）水平分裂算法和毒性逆转">（3）水平分裂算法和毒性逆转</h4>
+<p><strong>水平分裂（split horizon）算法</strong>是一种对无穷计算问题的解决方法。</p>
 <p>重新使用我们在坏消息传的慢的例子中所构建的场景，当A到B的链路意外中断后，开始第一次信息交换。此时C点向B点发送自己的信息时，因为它知道自己到达A的下一跳就是B，于是选择不在B面前班门弄斧，把自己到达A的路径藏起来，告诉B自己不可达A。但是C点向D点发送自己的信息时，则是正常地把自己记录的到达A点的距离传达出去，通过这种方式来避免回路的产生，A点不可达的坏消息以一次交换一个节点的速度向外传播。我们将这种不将从某个邻居学到的路由信息通过同一个接口再返回给该邻居的算法称之为水平分裂算法，《自顶向下》这本书上也将其称之为<strong>毒性逆转（Poison Reverse）</strong>。</p>
 <p>但实际上，水平分裂算法并没有解决一般的无穷计数问题，例如涉及3个或更多节点（而不只是两个直接相连的邻居节点）的环路：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d765c4f1.png" alt="9"></p>
 <p>在这张图中，如果CD之间的路径失效了，C获知D不可达。在信息交换后从AB处获得的信息也为D不可达，因此认为D不可达。但是A从C处获得D不可达的同时，又从B处得知B到D的距离为2，于是认为自己到D的距离为3。点B也同理，经过无限次信息交换后，AB才知道D不可达。</p>
-<h3 id="4-LS与DV路由选择算法的比较"><a href="#4-LS与DV路由选择算法的比较" class="headerlink" title="4.LS与DV路由选择算法的比较"></a>4.LS与DV路由选择算法的比较</h3><p><strong>报文复杂性（DV复杂度更低）</strong>：LS算法要求每个节点知道网络中每条链路的开销，这就要求发送O（|N| |E|）个报文（N个节点，E条链路），而DV只需要相邻连接的点直接交换报文。</p>
+<h3 id="4-LS与DV路由选择算法的比较">4.LS与DV路由选择算法的比较</h3>
+<p><strong>报文复杂性（DV复杂度更低）</strong>：LS算法要求每个节点知道网络中每条链路的开销，这就要求发送O（|N| |E|）个报文（N个节点，E条链路），而DV只需要相邻连接的点直接交换报文。</p>
 <p><strong>收敛速度（LS收敛速度更快）</strong>：LS算法的实现是一个要求O（|N| |E|）个报文的时间复杂度为O（N_2）的算法，可能遇见路由震荡的问题；而DV算法收敛较慢，且在收敛时会遇到路由选择环路，遭遇无穷计数问题。</p>
 <p><strong>健壮性（LS的健壮性更强）</strong>：在LS中，每个节点都通过接收和处理网络中所有节点的链路状态通告（LSA）来计算其自身的路由表。因此，即使某个节点广播了不正确的链路开销信息，但每个节点独立计算自己的转发表，这为网络的健壮性提供了一定的保障。而在DV算法中，一个节点可向任意或所有目标节点通告其不正确的最低开销路径。例如一个故障路由器错误地向其邻居提供了自己链路代价极低的信息，这将导致其他路由器将大量流量引向该故障路由器。</p>
-<h2 id="三、因特网中自治系统内部的路由选择"><a href="#三、因特网中自治系统内部的路由选择" class="headerlink" title="三、因特网中自治系统内部的路由选择"></a>三、因特网中自治系统内部的路由选择</h2><h3 id="1-RIP"><a href="#1-RIP" class="headerlink" title="1.RIP"></a>1.RIP</h3><p><strong>RIP（Routing Information Protocol）</strong> 的中文名是路由信息协议，它是内部网关协议IGP中最先得到广泛使用的协议。</p>
+<h2 id="三、因特网中自治系统内部的路由选择">三、因特网中自治系统内部的路由选择</h2>
+<h3 id="1-RIP">1.RIP</h3>
+<p><strong>RIP（Routing Information Protocol）</strong> 的中文名是路由信息协议，它是内部网关协议IGP中最先得到广泛使用的协议。</p>
 <p>RIP是一种分布式的<strong>基于距离向量的路由选择协议</strong>，RIP以<strong>跳数（hop count）</strong> 作为代价，每经过一个路由器就加一。RIP允许一条路径最多只能包含15个路由器，距离16相当于不可达，每个DV（距离矢量，Distance Vector）通告最多可以包含 25 个目标网络。，因此RIP只适用于小型互联网。</p>
 <p>RIP的特点是：</p>
-<ul>
-<li>仅和相邻路由器交换信息。</li>
-<li>路由器交换的信息是当前本路由器所知道的全部信息，即自己现在的路由表，内容是“我到本自治系统AS中所有网络的（最短）距离，以及到每隔网络应经过的下一跳路由器”。</li>
-<li>按照固定的时间间隔交换路由信息，如每隔30秒一次；当网络拓扑发生改变时，路由器也会及时向相邻路由器通告拓扑变化后的路由信息。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>仅和相邻路由器交换信息。</p>
+</li>
+<li class="lvl-2">
+<p>路由器交换的信息是当前本路由器所知道的全部信息，即自己现在的路由表，内容是“我到本自治系统AS中所有网络的（最短）距离，以及到每隔网络应经过的下一跳路由器”。</p>
+</li>
+<li class="lvl-2">
+<p>按照固定的时间间隔交换路由信息，如每隔30秒一次；当网络拓扑发生改变时，路由器也会及时向相邻路由器通告拓扑变化后的路由信息。</p>
+</li>
 </ul>
 <blockquote>
 <p><strong>注意</strong>：到直接连接的网络的距离定义为1，也有些地方定义为0（理由是路由器在和直接连接在该网络上的主机通信时，不需要经过另外的路由器），具体视情况而定，但两种不同的定义都不影响RIP的实现。</p>
 </blockquote>
 <p>RIP以应用进程的方式实现，通告报文通过<strong>UDP</strong>报文传送（很有意思，以应用层的进程的形式借助传输层的UDP实现了网络层的RIP协议）。</p>
-<h3 id="2-OSPF"><a href="#2-OSPF" class="headerlink" title="2.OSPF"></a>2.OSPF</h3><p><strong>OSPF（Open Shortest Path First）</strong> 的中文名是开放最短路径优先。它同样是内部网关协议IGP中的协议，是为了克服RIP的缺点而开发出来的。</p>
+<h3 id="2-OSPF">2.OSPF</h3>
+<p><strong>OSPF（Open Shortest Path First）</strong> 的中文名是开放最短路径优先。它同样是内部网关协议IGP中的协议，是为了克服RIP的缺点而开发出来的。</p>
 <p>OSPF最主要的特征是使用分布式的<strong>链路状态协议</strong>，而不是向RIP那样的距离向量协议。相较于RIP，OSPF新增了以下“高级特性”（RIP所没有的）：</p>
-<ul>
-<li>安全，所有的OSPF报文都是经过认证的，可防止恶意攻击。</li>
-<li>允许有多个代价相同的路径存在，即当OSPF发现到达目的地有多条代价相同的路径时，它可以将这些路径均添加到路由表中（RIP只能保存一个），在它们之间实现某种程度上的负载均衡。</li>
-<li>对单播和多播路由选择的综合支持。</li>
-<li>支持在单个自治系统AS中的层次结构，我们在下面详细介绍其在AS中的层次结构。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安全，所有的OSPF报文都是经过认证的，可防止恶意攻击。</p>
+</li>
+<li class="lvl-2">
+<p>允许有多个代价相同的路径存在，即当OSPF发现到达目的地有多条代价相同的路径时，它可以将这些路径均添加到路由表中（RIP只能保存一个），在它们之间实现某种程度上的负载均衡。</p>
+</li>
+<li class="lvl-2">
+<p>对单播和多播路由选择的综合支持。</p>
+</li>
+<li class="lvl-2">
+<p>支持在单个自治系统AS中的层次结构，我们在下面详细介绍其在AS中的层次结构。</p>
+</li>
 </ul>
 <p><strong>层次化的OSPF路由</strong>如下图所示：</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d7f57f9e.png" alt="10"></p>
 <p>一个OSPF自治系统能够层次化地配置多个区域，包括图中的骨干区域和本地区域，每个区域都运行自己的OSPF链路状态路由算法，区域内的每台路由器的链路状态通告仅在本地区域内广播，且仅拥有本地区域的拓扑信息。</p>
-<ul>
-<li>区域边界路由器（area border router）负责连接多个区域，并在不同区域之间传播路由信息。</li>
-<li>骨干路由器（backbone router）仅在骨干区域内，运行OSPF路由。</li>
-<li>边界路由器（boundary router）用于连接其他的AS。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>区域边界路由器（area border router）负责连接多个区域，并在不同区域之间传播路由信息。</p>
+</li>
+<li class="lvl-2">
+<p>骨干路由器（backbone router）仅在骨干区域内，运行OSPF路由。</p>
+</li>
+<li class="lvl-2">
+<p>边界路由器（boundary router）用于连接其他的AS。</p>
+</li>
 </ul>
-<h2 id="四、ISP之间的路由选择：BGP"><a href="#四、ISP之间的路由选择：BGP" class="headerlink" title="四、ISP之间的路由选择：BGP"></a>四、ISP之间的路由选择：BGP</h2><h3 id="1-层次路由"><a href="#1-层次路由" class="headerlink" title="1.层次路由"></a>1.层次路由</h3><p>所有路由器在一个平面所面临的问题：</p>
-<ul>
-<li>规模问题：规模巨大的网络中，路由信息的存储、传输和计算代价巨大。</li>
-<li>管理问题：不同的网络所有者希望按照自己的方式管理网络，但一个平面的路由只能用相同的路由选择算法，且不能隐藏自己的网络细节。</li>
+<h2 id="四、ISP之间的路由选择：BGP">四、ISP之间的路由选择：BGP</h2>
+<h3 id="1-层次路由">1.层次路由</h3>
+<p>所有路由器在一个平面所面临的问题：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>规模问题：规模巨大的网络中，路由信息的存储、传输和计算代价巨大。</p>
+</li>
+<li class="lvl-2">
+<p>管理问题：不同的网络所有者希望按照自己的方式管理网络，但一个平面的路由只能用相同的路由选择算法，且不能隐藏自己的网络细节。</p>
+</li>
 </ul>
 <p><strong>层次路由</strong>将互联网分成一个个AS（autonomous systems，自治系统），一个AS用AS Number（ASN）唯一标识，一个ISP可能包括一个或多个AS。</p>
 <p>通过这种方式，路由变成了两个层次的路由：</p>
 <p>AS内部路由：在同一个AS内的路由器运行相同的路由协议，但不同的AS可能运行着不同的内部网关协议，解决了规模和管理问题。</p>
 <p>AS外部路由：所有的AS运行相同的AS间路由选择协议，称为<strong>边界网关协议（Border Gateway Protocol，BGP）</strong>，解决AS之间的路由问题，完成AS之间的路由互通。</p>
-<h3 id="2-BGP"><a href="#2-BGP" class="headerlink" title="2.BGP"></a>2.BGP</h3><h4 id="（1）简介"><a href="#（1）简介" class="headerlink" title="（1）简介"></a>（1）简介</h4><p>边界网关协议BGP采用<strong>路径向量（path vector）路由选择协议</strong>，不同于传统的距离向量，其向其他AS通告的信息不仅包括到达目标的下一跳和代价，还包括到达各个目标的详细路径（AS序号的列表），这一点使得BGP能够避免简单DV算法中的路由环路问题。</p>
+<h3 id="2-BGP">2.BGP</h3>
+<h4 id="（1）简介">（1）简介</h4>
+<p>边界网关协议BGP采用<strong>路径向量（path vector）路由选择协议</strong>，不同于传统的距离向量，其向其他AS通告的信息不仅包括到达目标的下一跳和代价，还包括到达各个目标的详细路径（AS序号的列表），这一点使得BGP能够避免简单DV算法中的路由环路问题。</p>
 <p>BGP协议只是力求寻找一条能够到达目的网络且比较好的路径，而并非要寻找一条最佳路由，因为还要考虑不同的路由选择策略，如国内的站点在传送数据时尽量避开某些对我国安全有威胁的国家等等。</p>
 <p>BGP使用<strong>TCP</strong>交换报文，BGP报文有以下四种：</p>
-<ul>
-<li>OPEN（打开）报文：打开TCP连接，认证发送方。</li>
-<li>UPDATE（更新）报文：通告新路径，或者撤销原路径。</li>
-<li>KEEPALIVE（保活）报文：在没有更新时保持连接，也用于对OPEN 请求确认</li>
-<li>NOTIFICATION（通知）报文：报告以前消息的错误，也用来关闭连接</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>OPEN（打开）报文：打开TCP连接，认证发送方。</p>
+</li>
+<li class="lvl-2">
+<p>UPDATE（更新）报文：通告新路径，或者撤销原路径。</p>
+</li>
+<li class="lvl-2">
+<p>KEEPALIVE（保活）报文：在没有更新时保持连接，也用于对OPEN 请求确认</p>
+</li>
+<li class="lvl-2">
+<p>NOTIFICATION（通知）报文：报告以前消息的错误，也用来关闭连接</p>
+</li>
 </ul>
-<h4 id="（2）通告BGP路由信息"><a href="#（2）通告BGP路由信息" class="headerlink" title="（2）通告BGP路由信息"></a>（2）通告BGP路由信息</h4><p><img src="https://bu.dusays.com/2024/11/26/67457d8ab2a52.png" alt="11"></p>
+<h4 id="（2）通告BGP路由信息">（2）通告BGP路由信息</h4>
+<p><img src="https://bu.dusays.com/2024/11/26/67457d8ab2a52.png" alt="11"></p>
 <p>上图是一个具有三个自治系统的简单网络，对于每个AS中的路由器，我们可以分为两类：</p>
-<ul>
-<li><strong>网关路由器（gateway router）</strong>：位于AS边缘的路由器，直接连接到其他AS中的一台或多台路由器，如图中的1c、2a等。</li>
-<li><strong>内部路由器（internal router）</strong>：仅连接在它自己AS中的主机和路由器，如图中的1a、1b。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>网关路由器（gateway router）</strong>：位于AS边缘的路由器，直接连接到其他AS中的一台或多台路由器，如图中的1c、2a等。</p>
+</li>
+<li class="lvl-2">
+<p><strong>内部路由器（internal router）</strong>：仅连接在它自己AS中的主机和路由器，如图中的1a、1b。</p>
+</li>
 </ul>
 <p>在BGP中，每对路由器通过使用179端口的半永久<strong>TCP连接</strong>交换路由选择信息，每一条这样的直接连接以及通过它发送的所有BGP报文，称为<strong>BGP连接（BGP Connection）</strong>。BGP连接也可分为两种：</p>
-<ul>
-<li><strong>外部BGP（eBGP）</strong>：跨越两个AS的BCP连接。</li>
-<li><strong>内部BGP（iBGP）</strong>：在相同AS中的两台路由器之间的BGP连接（iBGP连接用不总是与物理链路对应）。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>外部BGP（eBGP）</strong>：跨越两个AS的BCP连接。</p>
+</li>
+<li class="lvl-2">
+<p><strong>内部BGP（iBGP）</strong>：在相同AS中的两台路由器之间的BGP连接（iBGP连接用不总是与物理链路对应）。</p>
+</li>
 </ul>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d94e46fc.png" alt="12"></p>
 <p>我们以上图为例考虑实现向所有路由器通告右下角子网x的可达性：</p>
 <p>网关路由器3a先向网关路由器2c发送一个eBGPb报文“AS3 x”，表示x存在且位于AS3中。网关路由器2c然后向AS2中的所有其他路由器（包括网关路由器2a）发送iBGP报文“AS3 x”。网关路由器2a接下来向网关路由器1c发送一个eBGP报文“AS2 AS3 x”，报文中包括了AS序号形式的到达x的详细路径。最后网关路由器1c使用iBGP向ASI中的所有路由器发送报文“AS2 AS3 x”。在这个过程完成后，AS1和AS2的每个路由器都知道了x的存在并且也都知道了通往x的AS路径。</p>
-<h4 id="（3）BGP路径选择"><a href="#（3）BGP路径选择" class="headerlink" title="（3）BGP路径选择"></a>（3）BGP路径选择</h4><p>当GP 路由器通过 BGP 连接通告前缀（这里前缀代表目的子网，例如我们上面提到的x）时，它不仅仅通告 IP 前缀，还会包含一些重要的<strong>BGP属性（BGP Attributes）</strong>，其中两个最重要的属性是 <strong>AS-PATH</strong> 和 <strong>NEXT-PATH</strong> 。</p>
+<h4 id="（3）BGP路径选择">（3）BGP路径选择</h4>
+<p>当GP 路由器通过 BGP 连接通告前缀（这里前缀代表目的子网，例如我们上面提到的x）时，它不仅仅通告 IP 前缀，还会包含一些重要的<strong>BGP属性（BGP Attributes）</strong>，其中两个最重要的属性是 <strong>AS-PATH</strong> 和 <strong>NEXT-PATH</strong> 。</p>
 <p><strong>AS-PATH</strong> 属性包含了该通告已经通过的AS列表，例如下图中，AS1到子网x有两条路，一条使用AS-PATH“AS2 AS3”，而另一条使用AS-PATH“AS3”。该属性还可以用来检测和防止通告环路，如果一台路由器在路径列表中看到了包含自己的AS，它将拒绝通告。</p>
 <p><strong>NEXT-PATH</strong> 是<strong>AS-PATH</strong> 起始的路由器接口的IP地址，例如下图中的2a和3d分别是从AS1到x的两条路径的NEXT-PATH。</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457d9da9bb4.png" alt="13"></p>
 <p><strong>热土豆路由选择（hot potato routing）</strong>，选择具备最小内部区域代价的网关作为往X的出口。以上图中的1b为例，如果想到达子网x，它可选的两条路径的NEXT-PATH分别为2a和3d。因为1b到达2a的最短距离为2，到达3d的最短距离为3，因此选择到达NEXT-PATH开销更小的路径“AS2 AS3”。核心思想是尽可能快地将分组送出其AS，就像丢烫手的土豆一样。</p>
 <p>在实践中，BGP不仅会使用热土豆路由选择，还会结合其他多种策略和因素来优化路由选择。</p>
-<h2 id="五、ICMP"><a href="#五、ICMP" class="headerlink" title="五、ICMP"></a>五、ICMP</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p><strong>ICMP</strong>的中文名是<strong>网际控制报文协议（Internet Control Message Protocol）</strong>。</p>
+<h2 id="五、ICMP">五、ICMP</h2>
+<h3 id="1-简介">1.简介</h3>
+<p><strong>ICMP</strong>的中文名是<strong>网际控制报文协议（Internet Control Message Protocol）</strong>。</p>
 <p>ICMP允许主机或路由器报告差错情况和提供有关异常情况的报告。ICMP报文封装在IP数据报中，作为其中的数据部分，通常被认为是IP的一部分（但是从体系结构上讲它位于IP之上，因为ICMP报文是作为IP有效载荷承载的，就像TCP与UDP报文段作为IP有效载荷被承载那样，但不论如何，ICMP都是<strong>网络层协议</strong>）。</p>
 <p>ICMP报文段种类有两种，即<strong>ICMP差错报告报文</strong> 和<strong>ICMP询问报文</strong>。</p>
 <p>ICMP报文的前四个字节是统一的格式，包括三个字段：类型、代码和检验和。接着的4个字节与ICMP的类型有关，最后面是数据字段，其长度取决于ICMP的类型，下面是几种常用的报文类型：</p>
@@ -445,29 +570,93 @@ if (false) {
     </tr>
   </tbody>
 </table>
-
-<h3 id="2-ICMP差错报告报文"><a href="#2-ICMP差错报告报文" class="headerlink" title="2.ICMP差错报告报文"></a>2.ICMP差错报告报文</h3><p>ICMP差错报文共有四种：</p>
-<ul>
-<li><strong>终点不可达</strong>：当路由器或主机不能交付数据报时就向原点发送终点不可达报文。</li>
-<li><strong>时间超过</strong>：当路由器收到生存时间为零的数据报时，除丢弃该数据报外，还要向原点发送时间超过报文；当终点在预先规定的时间内不能收到一个数据报的全部数据报片时，就把已收到的数据报片都丢弃，并向源点发送时间超过报文。</li>
-<li><strong>参数问题</strong>：当路由器或目的主机收到的数据报的首部中有的字段的值不正确时，就丢弃该数据报，并向源点发送参数问题报文。</li>
-<li><strong>改变路由（重定向）</strong>：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器（可通过更好的路由）。</li>
+<h3 id="2-ICMP差错报告报文">2.ICMP差错报告报文</h3>
+<p>ICMP差错报文共有四种：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>终点不可达</strong>：当路由器或主机不能交付数据报时就向原点发送终点不可达报文。</p>
+</li>
+<li class="lvl-2">
+<p><strong>时间超过</strong>：当路由器收到生存时间为零的数据报时，除丢弃该数据报外，还要向原点发送时间超过报文；当终点在预先规定的时间内不能收到一个数据报的全部数据报片时，就把已收到的数据报片都丢弃，并向源点发送时间超过报文。</p>
+</li>
+<li class="lvl-2">
+<p><strong>参数问题</strong>：当路由器或目的主机收到的数据报的首部中有的字段的值不正确时，就丢弃该数据报，并向源点发送参数问题报文。</p>
+</li>
+<li class="lvl-2">
+<p><strong>改变路由（重定向）</strong>：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器（可通过更好的路由）。</p>
+</li>
 </ul>
-<p>所有的ICMP差错报文中的数字字段都有相同的格式，如下图所示：把需要进行差错报告的IP数据报的首部和数据字段的前8个字节（这8个字节是为了得到传输层TCP&#x2F;UDP的端口号以及传输层TCP报文的发送序号）提取出来，作为ICMP报文的数据字段，前面在加上相应的ICMP差错报告报文的前8个字节，就构成了ICMP差错报告报文。</p>
+<p>所有的ICMP差错报文中的数字字段都有相同的格式，如下图所示：把需要进行差错报告的IP数据报的首部和数据字段的前8个字节（这8个字节是为了得到传输层TCP/UDP的端口号以及传输层TCP报文的发送序号）提取出来，作为ICMP报文的数据字段，前面在加上相应的ICMP差错报告报文的前8个字节，就构成了ICMP差错报告报文。</p>
 <p><img src="https://bu.dusays.com/2024/11/26/67457da6f0f7c.png" alt="14"></p>
 <p>在以下情况不应发送ICMP差错报告报文：</p>
-<ul>
-<li>对ICMP差错报告报文，不再发送ICMP差错报告报文（禁止套娃doge）。</li>
-<li>对第一个分片的数据报片的所有后续数据报片，都不发送ICMP差错报告报文。</li>
-<li>对具有多播地址的数据报，都不发送ICMP差错报告报文。</li>
-<li>对具有特殊地址（如127.0.0.0或0.0.0.0）的数据报，不发送ICMP差错报告报文。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>对ICMP差错报告报文，不再发送ICMP差错报告报文（禁止套娃doge）。</p>
+</li>
+<li class="lvl-2">
+<p>对第一个分片的数据报片的所有后续数据报片，都不发送ICMP差错报告报文。</p>
+</li>
+<li class="lvl-2">
+<p>对具有多播地址的数据报，都不发送ICMP差错报告报文。</p>
+</li>
+<li class="lvl-2">
+<p>对具有特殊地址（如127.0.0.0或0.0.0.0）的数据报，不发送ICMP差错报告报文。</p>
+</li>
 </ul>
-<h3 id="3-ICMP询问报文"><a href="#3-ICMP询问报文" class="headerlink" title="3.ICMP询问报文"></a>3.ICMP询问报文</h3><p>常用的ICMP询问报文有两种：</p>
-<ul>
-<li><strong>回送请求和回答</strong>：ICMP回送请求报文是由主机或路由器向一个特定的目的主机发出的询问，收到的主机必须给源主机或路由器发送ICMP回送回答报文。这种报文用于测试目的站是否可达以及了解其有关状态。</li>
-<li><strong>时间戳请求和回答</strong>：ICMP时间戳请求报文是请某台主机或路由器回答当前的日期和时间。时间戳请求与回答可用于时钟同步和时间测量。</li>
+<h3 id="3-ICMP询问报文">3.ICMP询问报文</h3>
+<p>常用的ICMP询问报文有两种：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><strong>回送请求和回答</strong>：ICMP回送请求报文是由主机或路由器向一个特定的目的主机发出的询问，收到的主机必须给源主机或路由器发送ICMP回送回答报文。这种报文用于测试目的站是否可达以及了解其有关状态。</p>
+</li>
+<li class="lvl-2">
+<p><strong>时间戳请求和回答</strong>：ICMP时间戳请求报文是请某台主机或路由器回答当前的日期和时间。时间戳请求与回答可用于时钟同步和时间测量。</p>
+</li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://aoxuexinghuo.github.io/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/">https://aoxuexinghuo.github.io/2024/10/24/《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>℡傲雪&amp;星火ぴ</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-10-24</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-11-30</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post-share"><div class="social-share" data-image="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/10/13/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e041bb5c4.jpg" onerror="onerror=null;src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面</div></div><div class="info-2"><div class="info-item-1">一、导论1.网络层概述提供的服务：  在发送主机和接收主机对之间传送报文段（segment） 在发送端将报文段封装到数据报（datagram） 中 在接收端将数据报解封装，提取出报文段上交给传输层实体 网络层协议存在于每一个主机和路由器中 路由器会检查每一个经过它的 IP 数据报的头部  网络层的关键功能： 转发（forwarding）：指将分组从一个输入链路接口转移到适当的输出链路接口的路由器本地动作（即，对于每一个具体的数据交换结点，决定分组从某个端口入，再从某个合适的端口发送出去，是一个局部的概念） 路由（routing）：指确定分组从源到目的地所采取的端到端路径的网络范围处理过程（即，规划从源到目标的详细路径，是一个全局的概念） 计算路由选择路径的算法被称为路由选择算法（routing algorithm），在网络中交换路由信息的通信协议被称为路由选择协议（Routing Protocol）。 2.数据平面功能：数据平面负责实际的数据报转发（即转发功能的实现） 每台网络路由器中都有一个关键元素——转发表（forwarding...</div></div></div></a><a class="pagination-related" href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e01b2308a.jpg" onerror="onerror=null;src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/09/22/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网</div></div><div class="info-2"><div class="info-item-1">有种高中生物的美。</div></div></div></a><a class="pagination-related" href="/2024/09/26/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第三章 传输层"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-26</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第三章 传输层</div></div><div class="info-2"><div class="info-item-1">一、概述和传输层服务1.传输层提供的服务传输层为运行在不同主机上的应用进程提供逻辑通信。 传输层的协议运行在端系统（而不是路由器）：  发送方将应用层的报文分成报文段，然后穿递给下一层的网络层。 接收方从网络层接收后将报文段重组成报文，然后传递给上一层的应用层。   注意：本地进程间通信无需通过网络层和传输层，它们可以使用操作系统内核提供的进程间通信（IPC）机制进行直接通信。  2.传输层和网络层的比较网络层服务：主机之间的逻辑通信 传输层服务：进程之间的逻辑通信 传输层运行在网络层的上层，将服务细分为主机间的进程通信 传输层在网络层的服务基础上对其进行加强。例如，解决网络层的数据丢失、顺序混乱等问题，但并不是所有的服务都能得到加强，比如带宽、延迟。 3.传输层协议可靠的、保序的传输：TCP  多路复用、解复用  拥塞控制  流量控制  建立连接   不可靠的、不保序的传输：UDP  多路复用、解复用  没有为尽力而为的（best-effort）...</div></div></div></a><a class="pagination-related" href="/2024/09/22/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E5%BA%94%E7%94%A8%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第二章 应用层"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e04015924.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第二章 应用层</div></div><div class="info-2"><div class="info-item-1">一、应用层协议原理1.网络应用程序体系结构（1）客户-服务器体系结构（client-server...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://bu.dusays.com/2024/11/28/6747d82900e41.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/6748473533994.jpeg'" alt="avatar"/></div><div class="author-info-name">℡傲雪&amp;星火ぴ</div><div class="author-info-description">和你相遇真是太好了。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://play.pokemonshowdown.com/"><i class="fas fa-gamepad"></i><span>来场酣畅淋漓的对战吧！</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/aoxuexinghuo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/1152084837" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #00a1d6;"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_63978748" target="_blank" title="CSDN"><i class="fas fa-c" style="color: #FF6600;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">别学了，做会宝可梦吧( ‘-ωก̀ )</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E4%B8%8ESDN%E6%96%B9%E5%BC%8F"><span class="toc-text">1.传统方式与SDN方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E7%9A%84%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6"><span class="toc-text">2.传统方式的路由机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">二、路由选择算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-text">1.前置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%93%BE%E8%B7%AF%E7%8A%B6%E6%80%81%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">2.链路状态路由选择算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">（1）实现方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Dijkstra%E7%AE%97%E6%B3%95"><span class="toc-text">（2）Dijkstra算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%9A%84%E9%9C%87%E8%8D%A1"><span class="toc-text">（3）路由选择的震荡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%9D%E7%A6%BB%E5%90%91%E9%87%8F%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">3.距离向量路由选择算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F-1"><span class="toc-text">（1）实现方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89DV%E7%9A%84%E6%97%A0%E7%A9%B7%E8%AE%A1%E7%AE%97%E9%97%AE%E9%A2%98"><span class="toc-text">（2）DV的无穷计算问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%B0%B4%E5%B9%B3%E5%88%86%E8%A3%82%E7%AE%97%E6%B3%95%E5%92%8C%E6%AF%92%E6%80%A7%E9%80%86%E8%BD%AC"><span class="toc-text">（3）水平分裂算法和毒性逆转</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-LS%E4%B8%8EDV%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">4.LS与DV路由选择算法的比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%9B%A0%E7%89%B9%E7%BD%91%E4%B8%AD%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9"><span class="toc-text">三、因特网中自治系统内部的路由选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-RIP"><span class="toc-text">1.RIP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-OSPF"><span class="toc-text">2.OSPF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81ISP%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%EF%BC%9ABGP"><span class="toc-text">四、ISP之间的路由选择：BGP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B1%82%E6%AC%A1%E8%B7%AF%E7%94%B1"><span class="toc-text">1.层次路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-BGP"><span class="toc-text">2.BGP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AE%80%E4%BB%8B"><span class="toc-text">（1）简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%80%9A%E5%91%8ABGP%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF"><span class="toc-text">（2）通告BGP路由信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89BGP%E8%B7%AF%E5%BE%84%E9%80%89%E6%8B%A9"><span class="toc-text">（3）BGP路径选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81ICMP"><span class="toc-text">五、ICMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ICMP%E5%B7%AE%E9%94%99%E6%8A%A5%E5%91%8A%E6%8A%A5%E6%96%87"><span class="toc-text">2.ICMP差错报告报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ICMP%E8%AF%A2%E9%97%AE%E6%8A%A5%E6%96%87"><span class="toc-text">3.ICMP询问报文</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/27/Hexo-Butterfly-%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/" title="Hexo+Butterfly 优化记录"><img src="https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="Hexo+Butterfly 优化记录"/></a><div class="content"><a class="title" href="/2024/11/27/Hexo-Butterfly-%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/" title="Hexo+Butterfly 优化记录">Hexo+Butterfly 优化记录</a><time datetime="2024-11-27T13:31:22.000Z" title="发表于 2024-11-27 21:31:22">2024-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网"><img src="https://bu.dusays.com/2024/11/27/6746e01b2308a.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网"/></a><div class="content"><a class="title" href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网">《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网</a><time datetime="2024-10-29T02:50:00.000Z" title="发表于 2024-10-29 10:50:00">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面"><img src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面"/></a><div class="content"><a class="title" href="/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面">《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</a><time datetime="2024-10-24T02:05:22.000Z" title="发表于 2024-10-24 10:05:22">2024-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/13/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面"><img src="https://bu.dusays.com/2024/11/27/6746e041bb5c4.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面"/></a><div class="content"><a class="title" href="/2024/10/13/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面">《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面</a><time datetime="2024-10-13T13:07:19.000Z" title="发表于 2024-10-13 21:07:19">2024-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/26/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第三章 传输层"><img src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第三章 传输层"/></a><div class="content"><a class="title" href="/2024/09/26/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第三章 传输层">《计算机网络 自顶向下方法》笔记：第三章 传输层</a><time datetime="2024-09-26T11:52:56.000Z" title="发表于 2024-09-26 19:52:56">2024-09-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://bu.dusays.com/2024/11/27/6746e05871049.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2024 By ℡傲雪&星火ぴ</div><div class="footer_custom_text">有一天，我看了四十四次日落！你知道的，当一个人情绪低落的时候，他会格外喜欢看日落。 —— 《小王子》</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://aoxuexinghuo.github.io/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/">https://aoxuexinghuo.github.io/2024/10/24/《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>℡傲雪&amp;星火ぴ</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-10-24</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-11-30</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></div><div class="post-share"><div class="social-share" data-image="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/10/13/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" onerror="onerror=null;src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面</div></div><div class="info-2"><div class="info-item-1">一、导论 1.网络层概述 提供的服务：   在发送主机和接收主机对之间传送报文段（segment）   在发送端将报文段封装到数据报（datagram） 中   在接收端将数据报解封装，提取出报文段上交给传输层实体   网络层协议存在于每一个主机和路由器中   路由器会检查每一个经过它的 IP 数据报的头部   网络层的关键功能： 转发（forwarding）：指将分组从一个输入链路接口转移到适当的输出链路接口的路由器本地动作（即，对于每一个具体的数据交换结点，决定分组从某个端口入，再从某个合适的端口发送出去，是一个局部的概念） 路由（routing）：指确定分组从源到目的地所采取的端到端路径的网络范围处理过程（即，规划从源到目标的详细路径，是一个全局的概念） 计算路由选择路径的算法被称为路由选择算法（routing algorithm），在网络中交换路由信息的通信协议被称为路由选择协议（Routing Protocol）。 2.数据平面 功能：数据平面负责实际的数据报转发（即转发功能的实现） 每台网络路由器中都有一个关键元素——转发表（forwarding...</div></div></div></a><a class="pagination-related" href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg" onerror="onerror=null;src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2024/09/22/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%92%8C%E5%9B%A0%E7%89%B9%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746e041bb5c4.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网</div></div><div class="info-2"><div class="info-item-1">有种高中生物的美。</div></div></div></a><a class="pagination-related" href="/2024/09/26/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第三章 传输层"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-26</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第三章 传输层</div></div><div class="info-2"><div class="info-item-1">一、概述和传输层服务 1.传输层提供的服务 传输层为运行在不同主机上的应用进程提供逻辑通信。 传输层的协议运行在端系统（而不是路由器）：   发送方将应用层的报文分成报文段，然后穿递给下一层的网络层。   接收方从网络层接收后将报文段重组成报文，然后传递给上一层的应用层。    注意：本地进程间通信无需通过网络层和传输层，它们可以使用操作系统内核提供的进程间通信（IPC）机制进行直接通信。  2.传输层和网络层的比较 网络层服务：主机之间的逻辑通信 传输层服务：进程之间的逻辑通信 传输层运行在网络层的上层，将服务细分为主机间的进程通信 传输层在网络层的服务基础上对其进行加强。例如，解决网络层的数据丢失、顺序混乱等问题，但并不是所有的服务都能得到加强，比如带宽、延迟。 3.传输层协议 可靠的、保序的传输：TCP   多路复用、解复用   拥塞控制   流量控制   建立连接   不可靠的、不保序的传输：UDP   多路复用、解复用   没有为尽力而为的（best-effort）...</div></div></div></a><a class="pagination-related" href="/2024/09/22/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E5%BA%94%E7%94%A8%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第二章 应用层"><img class="cover" src="https://bu.dusays.com/2024/11/27/6746dee5408d3.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-22</div><div class="info-item-2">《计算机网络 自顶向下方法》笔记：第二章 应用层</div></div><div class="info-2"><div class="info-item-1">一、应用层协议原理 1.网络应用程序体系结构 （1）客户-服务器体系结构（client-server...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://bu.dusays.com/2024/11/28/6747d82900e41.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/6748473533994.jpeg'" alt="avatar"/></div><div class="author-info-name">℡傲雪&amp;星火ぴ</div><div class="author-info-description">和你相遇真是太好了。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://play.pokemonshowdown.com/"><i class="fas fa-gamepad"></i><span>来场酣畅淋漓的对战吧！</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/aoxuexinghuo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/1152084837" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #00a1d6;"></i></a><a class="social-icon" href="https://blog.csdn.net/qq_63978748" target="_blank" title="CSDN"><i class="fas fa-c" style="color: #FF6600;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">别学了，做会宝可梦吧( ‘-ωก̀ )</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E4%B8%8ESDN%E6%96%B9%E5%BC%8F"><span class="toc-text">1.传统方式与SDN方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E7%9A%84%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6"><span class="toc-text">2.传统方式的路由机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">二、路由选择算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%89%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-text">1.前置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%93%BE%E8%B7%AF%E7%8A%B6%E6%80%81%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">2.链路状态路由选择算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">（1）实现方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Dijkstra%E7%AE%97%E6%B3%95"><span class="toc-text">（2）Dijkstra算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%9A%84%E9%9C%87%E8%8D%A1"><span class="toc-text">（3）路由选择的震荡</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%9D%E7%A6%BB%E5%90%91%E9%87%8F%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="toc-text">3.距离向量路由选择算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F-2"><span class="toc-text">（1）实现方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89DV%E7%9A%84%E6%97%A0%E7%A9%B7%E8%AE%A1%E7%AE%97%E9%97%AE%E9%A2%98"><span class="toc-text">（2）DV的无穷计算问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%B0%B4%E5%B9%B3%E5%88%86%E8%A3%82%E7%AE%97%E6%B3%95%E5%92%8C%E6%AF%92%E6%80%A7%E9%80%86%E8%BD%AC"><span class="toc-text">（3）水平分裂算法和毒性逆转</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-LS%E4%B8%8EDV%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-text">4.LS与DV路由选择算法的比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%9B%A0%E7%89%B9%E7%BD%91%E4%B8%AD%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9"><span class="toc-text">三、因特网中自治系统内部的路由选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-RIP"><span class="toc-text">1.RIP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-OSPF"><span class="toc-text">2.OSPF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81ISP%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%EF%BC%9ABGP"><span class="toc-text">四、ISP之间的路由选择：BGP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%B1%82%E6%AC%A1%E8%B7%AF%E7%94%B1"><span class="toc-text">1.层次路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-BGP"><span class="toc-text">2.BGP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E7%AE%80%E4%BB%8B"><span class="toc-text">（1）简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E9%80%9A%E5%91%8ABGP%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF"><span class="toc-text">（2）通告BGP路由信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%883%EF%BC%89BGP%E8%B7%AF%E5%BE%84%E9%80%89%E6%8B%A9"><span class="toc-text">（3）BGP路径选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81ICMP"><span class="toc-text">五、ICMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ICMP%E5%B7%AE%E9%94%99%E6%8A%A5%E5%91%8A%E6%8A%A5%E6%96%87"><span class="toc-text">2.ICMP差错报告报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ICMP%E8%AF%A2%E9%97%AE%E6%8A%A5%E6%96%87"><span class="toc-text">3.ICMP询问报文</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/11/27/Hexo-Butterfly-%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/" title="Hexo+Butterfly 优化记录"><img src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="Hexo+Butterfly 优化记录"/></a><div class="content"><a class="title" href="/2024/11/27/Hexo-Butterfly-%E4%BC%98%E5%8C%96%E8%AE%B0%E5%BD%95/" title="Hexo+Butterfly 优化记录">Hexo+Butterfly 优化记录</a><time datetime="2024-11-27T13:31:22.000Z" title="发表于 2024-11-27 21:31:22">2024-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网"><img src="https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网"/></a><div class="content"><a class="title" href="/2024/10/29/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/" title="《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网">《计算机网络 自顶向下方法》笔记：第六章 链路层和局域网</a><time datetime="2024-10-29T02:50:00.000Z" title="发表于 2024-10-29 10:50:00">2024-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面"><img src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面"/></a><div class="content"><a class="title" href="/2024/10/24/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面">《计算机网络 自顶向下方法》笔记：第五章 网络层：控制平面</a><time datetime="2024-10-24T02:05:22.000Z" title="发表于 2024-10-24 10:05:22">2024-10-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/13/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面"><img src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面"/></a><div class="content"><a class="title" href="/2024/10/13/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" title="《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面">《计算机网络 自顶向下方法》笔记：第四章 网络层：数据平面</a><time datetime="2024-10-13T13:07:19.000Z" title="发表于 2024-10-13 21:07:19">2024-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/26/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第三章 传输层"><img src="https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg" onerror="this.onerror=null;this.src='https://bu.dusays.com/2024/11/28/674845666d85e.jpg'" alt="《计算机网络 自顶向下方法》笔记：第三章 传输层"/></a><div class="content"><a class="title" href="/2024/09/26/%E3%80%8A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%E6%96%B9%E6%B3%95%E3%80%8B%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%AB%A0-%E4%BC%A0%E8%BE%93%E5%B1%82/" title="《计算机网络 自顶向下方法》笔记：第三章 传输层">《计算机网络 自顶向下方法》笔记：第三章 传输层</a><time datetime="2024-09-26T11:52:56.000Z" title="发表于 2024-09-26 19:52:56">2024-09-26</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://bu.dusays.com/2024/11/27/6746e05871049.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2024 By ℡傲雪&星火ぴ</div><div class="footer_custom_text">有一天，我看了四十四次日落！你知道的，当一个人情绪低落的时候，他会格外喜欢看日落。 —— 《小王子》</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+      
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
   const isShuoshuo = GLOBAL_CONFIG_SITE.isShuoshuo
   const option = null
 
@@ -566,7 +755,7 @@ if (false) {
   </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="https://cdn.cbd.int/hexo-butterfly-clock-anzhiyu@1.1.6/lib/clock.min.js"></script><script data-pjax>
   function butterfly_swiper_injector_config(){
     var parent_div_git = document.getElementById('recent-posts');
-    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/09/21/Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746e02b1d09c.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-30</span><a class="blog-slider__title" href="2024/09/21/Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理/" alt="">Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理</a><div class="blog-slider__text">建议直接去学最新的Vue3。</div><a class="blog-slider__button" href="2024/09/21/Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/09/22/《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-30</span><a class="blog-slider__title" href="2024/09/22/《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网/" alt="">《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网</a><div class="blog-slider__text">有种高中生物的美。</div><a class="blog-slider__button" href="2024/09/22/《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/11/27/Hexo-Butterfly-优化记录/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746dfda5a0e1.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-30</span><a class="blog-slider__title" href="2024/11/27/Hexo-Butterfly-优化记录/" alt="">Hexo+Butterfly 优化记录</a><div class="blog-slider__text">记录对博客的修改，目前看起来还是很塑料。</div><a class="blog-slider__button" href="2024/11/27/Hexo-Butterfly-优化记录/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/09/21/test-page/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746dee5408d3.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-09-21</span><a class="blog-slider__title" href="2024/09/21/test-page/" alt="">测试文章</a><div class="blog-slider__text">给我测测！</div><a class="blog-slider__button" href="2024/09/21/test-page/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/09/21/Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746e041bb5c4.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-30</span><a class="blog-slider__title" href="2024/09/21/Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理/" alt="">Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理</a><div class="blog-slider__text">建议直接去学最新的Vue3。</div><a class="blog-slider__button" href="2024/09/21/Vue学习笔记（一）：模版语法、条件渲染、列表渲染、key值管理/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/09/22/《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746e041bb5c4.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-30</span><a class="blog-slider__title" href="2024/09/22/《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网/" alt="">《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网</a><div class="blog-slider__text">有种高中生物的美。</div><a class="blog-slider__button" href="2024/09/22/《计算机网络 自顶向下方法》笔记：第一章 计算机网络和因特网/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/11/27/Hexo-Butterfly-优化记录/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746e05871049.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-11-30</span><a class="blog-slider__title" href="2024/11/27/Hexo-Butterfly-优化记录/" alt="">Hexo+Butterfly 优化记录</a><div class="blog-slider__text">记录对博客的修改，目前看起来还是很塑料。</div><a class="blog-slider__button" href="2024/11/27/Hexo-Butterfly-优化记录/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2024/09/21/test-page/" alt=""><img width="48" height="48" src="https://bu.dusays.com/2024/11/27/6746e01b2308a.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2024-09-21</span><a class="blog-slider__title" href="2024/09/21/test-page/" alt="">测试文章</a><div class="blog-slider__text">给我测测！</div><a class="blog-slider__button" href="2024/09/21/test-page/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
     console.log('已挂载butterfly_swiper')
     parent_div_git.insertAdjacentHTML("afterbegin",item_html)
     }
