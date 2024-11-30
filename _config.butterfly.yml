@@ -1022,8 +1022,7 @@ pjax:
   enable: true
   # Exclude the specified pages from pjax, such as '/music/'
   exclude:
-     - /
-#     - /about/
+     - / # 把主页排除在外，防止樱花病毒扩散（雾）
 
 # Inject the css and script (aplayer/meting)
 aplayerInject:
