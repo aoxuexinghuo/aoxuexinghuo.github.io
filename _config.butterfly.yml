@@ -1024,7 +1024,6 @@ pjax:
   enable: true
   # Exclude the specified pages from pjax, such as '/music/'
   exclude:
-     - / # 把主页排除在外，防止樱花病毒扩散（雾）
 
 # Inject the css and script (aplayer/meting)
 aplayerInject:
@@ -1134,6 +1133,8 @@ inject:
     - <script defer src="/js/universe.js"></script>
     #      顶部渐变条色加载条相关
     - <script async src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script>
+    #      樱花特效
+    - <script defer src="/js/sakura.js"></script>
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work
