@@ -7,7 +7,7 @@ tags:
   - 笔记
   - 前端框架
 description: 建议直接去学最新的Vue3。
-swiper_index: 4
+swiper_index: 3
 ---
 ## 一、模版语法
 
