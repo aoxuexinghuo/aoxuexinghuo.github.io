@@ -1,0 +1,36 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "Florges.moc3",
+		"Textures": [
+			"Florges.4096/texture_00.png"
+		],
+		"Physics": "Florges.physics3.json",
+		"DisplayInfo": "Florges.cdi3.json",
+		"Expressions": [
+			{
+				"Name": "blush",
+				"File": "blush.exp3.json"
+			}
+		]
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": [
+				"ParamEyeROpen",
+				"ParamEyeLOpen"
+			]
+		},
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": [
+				"ParamMouthForm",
+				"ParamMouthOpenY"
+			]
+		}
+	],
+	"HitAreas": []
+}
