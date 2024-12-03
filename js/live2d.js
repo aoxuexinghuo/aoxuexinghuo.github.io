@@ -67,7 +67,7 @@ const cdnPath = 'https://cdn.jsdelivr.net/gh/aoxuexinghuo/live2d-widget-v3@main'
 const config = {
   // 资源路径
   path: {
-    modelPath: "../Resources/",
+    modelPath: "./Resources/",
     cssPath: cdnPath + "/waifu.css",
     tipsJsonPath: cdnPath + "/waifu-tips.json",
     tipsJsPath: cdnPath + "/waifu-tips.js",
