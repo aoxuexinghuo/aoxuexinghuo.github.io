@@ -12,7 +12,7 @@ const config = {
   },
   // 工具栏
   // tools: ["hitokoto", "asteroids", "express", "switch-model", "switch-texture", "info", "quit"],
-  tools: ["hitokoto", "asteroids", "quit"],
+  tools: ["hitokoto", "asteroids", "express", "quit"],
   // 模型拖拽
   drag: {
     enable: true,
