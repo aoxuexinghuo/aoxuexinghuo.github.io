@@ -5,7 +5,7 @@ const config = {
   path: {
     modelPath: "../../../../Resources/",
     cssPath: cdnPath + "/waifu.css",
-    tipsJsonPath: cdnPath + "/waifu-tips.json",
+    tipsJsonPath: "../../../../Resources/waifu-tips.json",
     tipsJsPath: cdnPath + "/waifu-tips.js",
     live2dCorePath: cdnPath + "/Core/live2dcubismcore.js",
     live2dSdkPath: cdnPath + "/live2d-sdk.js"
