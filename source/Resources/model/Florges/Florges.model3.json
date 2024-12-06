@@ -11,6 +11,10 @@
 			{
 				"Name": "blush",
 				"File": "blush.exp3.json"
+			},
+			{
+				"Name": "flower",
+				"File": "flower.exp3.json"
 			}
 		]
 	},
