@@ -1,0 +1,59 @@
+#- author: ℡傲雪&星火ぴ
+#  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+#  date: 2024-06-21 23:33:26
+#  key: key-1
+#  content: |
+#    This is a sample content for **Author 1**.
+#    ![Sample Image](https://via.placeholder.com/150)
+#  tags:
+#    - tags1
+#    - tags2
+#
+#- author: ℡傲雪&星火ぴ
+#  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+#  date: 2024-06-20 23:33:26
+#  key: key-2
+#  content: |
+#    This is a sample content for **Author 2**.
+#    ![Sample Image](https://via.placeholder.com/150)
+#  tags:
+#    - tag2
+#    - tag3
+#
+#- author: Butterfly
+#  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+#  date: 2024-06-19 23:33:26
+#  key: key-3
+#  content: |
+#    This is a sample content for **Author 3**.
+- author: ℡傲雪&星火ぴ
+  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+  date: 2024-12-11 20:20:36
+  key: key-3
+  content: |
+    唉，这个说说页面比想象的要鸡肋啊，手机拍的照片像素实在是太高了，无论是上传还是加载都太麻烦了，让我压缩像素不如杀了我（悲）。
+  tags:
+    - 吐槽
+
+- author: ℡傲雪&星火ぴ
+  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+  date: 2024-12-4 16:28:32
+  key: key-2
+  content: |
+    干饭的路上拍到的，粉蓝色的云竟然是真实存在的吗？
+    <img src="https://bu.dusays.com/2024/12/11/675980ce668a9.jpg" width="70%" height="70%">
+  tags:
+    - 大连理工大学
+
+- author: ℡傲雪&星火ぴ
+  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+  date: 2022-11-11 18:22:11
+  key: key-1
+  content: |
+    恭喜小智夺冠！😭😭😭
+    <div style="display: flex;">
+        <img src="https://bu.dusays.com/2024/12/11/67595c996c588.png" alt="Image 1" style="margin-right: 10px;">
+        <img src="https://bu.dusays.com/2024/12/11/67595e3d0d45f.png" alt="Image 2" style="margin-left: 10px;">
+    </div>
+  tags:
+    - 八大师夺冠

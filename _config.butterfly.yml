@@ -19,7 +19,7 @@ nav:
 # Menu 目录
 menu:
   首页: / || fas fa-home
-  文章||fas fa-list:
+  文章||fas fa-book:
     归档: /archives/ || fas fa-archive
     分类: /categories/ || fas fa-folder-open
     标签: /tags/ || fas fa-tags
@@ -27,7 +27,9 @@ menu:
   #     音乐: /music/ || fas fa-music
   #     电影: /movies/ || fas fa-video
   友人帐: /link/ || fas fa-link
-  关于: /about/ || fas fa-heart
+  我的||fas fa-street-view:
+    朝花夕拾: /shuoshuo/ || fas fa-pen-clip
+    关于: /about/ || fas fa-heart
 
 # hexo-butterfly-swiper
 # see https://akilar.top/posts/8e1264d1/
