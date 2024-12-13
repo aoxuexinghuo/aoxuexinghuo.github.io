@@ -29,6 +29,7 @@ menu:
   友人帐: /link/ || fas fa-link
   我的||fas fa-street-view:
     朝花夕拾: /shuoshuo/ || fas fa-pen-clip
+    清单: /list/ || fas fa-clipboard-list
     关于: /about/ || fas fa-heart
 
 # hexo-butterfly-swiper
