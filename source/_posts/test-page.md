@@ -9,6 +9,12 @@ description: 给我测测！
 测测我的。
 不可以测测。
 
+<div style="display: flex;">
+    <img src="https://bu.dusays.com/2024/12/11/67595c996c588.png" alt="Image 1" style="height: 180px; margin-right: 10px; object-fit: contain;">
+    <img src="https://bu.dusays.com/2024/12/11/67595e3d0d45f.png" alt="Image 2" style="height: 180px; object-fit: contain;">
+</div>
+
+
 {% folding 查看图片测试 %}
 
 ![](https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg)
@@ -21,27 +27,3 @@ description: 给我测测！
 
 {% endfolding %}
 
-{% folding green, 查看代码测试 %}
-假装这里有代码块（代码块没法嵌套代码块）
-{% endfolding %}
-
-{% folding yellow, 查看列表测试 %}
-
-- haha
-- hehe
-
-{% endfolding %}
-
-{% folding red, 查看嵌套测试 %}
-
-{% folding blue, 查看嵌套测试2 %}
-
-{% folding 查看嵌套测试3 %}
-
-hahaha <span><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/tieba/%E6%BB%91%E7%A8%BD.png' style='height:24px'></span>
-
-{% endfolding %}
-
-{% endfolding %}
-
-{% endfolding %}

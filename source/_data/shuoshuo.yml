@@ -1,31 +1,17 @@
-#- author: ℡傲雪&星火ぴ
-#  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
-#  date: 2024-06-21 23:33:26
-#  key: key-1
-#  content: |
-#    This is a sample content for **Author 1**.
-#    ![Sample Image](https://via.placeholder.com/150)
-#  tags:
-#    - tags1
-#    - tags2
-#
-#- author: ℡傲雪&星火ぴ
-#  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
-#  date: 2024-06-20 23:33:26
-#  key: key-2
-#  content: |
-#    This is a sample content for **Author 2**.
-#    ![Sample Image](https://via.placeholder.com/150)
-#  tags:
-#    - tag2
-#    - tag3
-#
-#- author: Butterfly
-#  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
-#  date: 2024-06-19 23:33:26
-#  key: key-3
-#  content: |
-#    This is a sample content for **Author 3**.
+- author: ℡傲雪&星火ぴ
+  avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
+  date: 2024-12-15 17:25:17
+  key: key-4
+  content: |
+    窝工让我感到陌生的一天，学校里竟然还有这种的地方。😋
+    <div style="display: flex;">
+      <img src="https://bu.dusays.com/2024/12/16/675fe6d1e5276.jpg" style="height: 180px; margin-right: 10px; object-fit: contain;">
+      <img src="https://bu.dusays.com/2024/12/16/675ff1d357f02.jpg" style="height: 180px; margin-right: 10px; object-fit: contain;">
+      <img src="https://bu.dusays.com/2024/12/16/675ff19c55a06.jpg" style="height: 180px; object-fit: contain;">
+    </div>
+  tags:
+    - 大连理工大学
+
 - author: ℡傲雪&星火ぴ
   avatar: https://bu.dusays.com/2024/11/28/6747d82900e41.jpg
   date: 2024-12-11 20:20:36
@@ -41,7 +27,7 @@
   key: key-2
   content: |
     干饭的路上拍到的，粉蓝色的云竟然是真实存在的吗？
-    <img src="https://bu.dusays.com/2024/12/11/675980ce668a9.jpg" width="70%" height="70%">
+    <img src="https://bu.dusays.com/2024/12/11/675980ce668a9.jpg" style="height: 300px; object-fit: contain;">
   tags:
     - 大连理工大学
 
@@ -52,8 +38,8 @@
   content: |
     恭喜小智夺冠！😭😭😭
     <div style="display: flex;">
-        <img src="https://bu.dusays.com/2024/12/11/67595c996c588.png" alt="Image 1" style="margin-right: 10px;">
-        <img src="https://bu.dusays.com/2024/12/11/67595e3d0d45f.png" alt="Image 2" style="margin-left: 10px;">
+      <img src="https://bu.dusays.com/2024/12/11/67595c996c588.png" style="height: 180px; margin-right: 10px; object-fit: contain;">
+      <img src="https://bu.dusays.com/2024/12/11/67595e3d0d45f.png" style="height: 180px; object-fit: contain;">
     </div>
   tags:
     - 八大师夺冠
