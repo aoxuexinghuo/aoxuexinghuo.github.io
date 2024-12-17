@@ -11,9 +11,10 @@ series: Vue2
 swiper_index: 3
 ---
 
-**🚥Vue2 系列文章导航🚥**
-
-{% series Vue2 %}
+> **🚥Vue2 系列文章导航🚥**
+>
+> {% series Vue2 %}
+>
 
 ## 一、模版语法
 

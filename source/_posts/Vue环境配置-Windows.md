@@ -9,9 +9,10 @@ tags:
 series: Vue2
 ---
 
-**🚥Vue2 系列文章导航🚥**
-
-{% series Vue2 %}
+> **🚥Vue2 系列文章导航🚥**
+>
+> {% series Vue2 %}
+>
 
 ## 一、node.js安装配置
 

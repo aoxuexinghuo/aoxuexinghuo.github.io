@@ -1060,7 +1060,7 @@ lazyload:
   enable: true
   # Specify the field to use lazyload (site or post)
   field: site
-  placeholder: https://bu.dusays.com/2024/11/28/6748473533994.jpeg
+  placeholder: https://bu.dusays.com/2024/12/17/6761341f89d99.gif
   blur: false
 
 # PWA
