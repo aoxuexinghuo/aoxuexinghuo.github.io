@@ -7,8 +7,14 @@ tags:
   - 笔记
   - 前端框架
 description: 建议直接去学最新的Vue3。
+series: Vue2
 swiper_index: 3
 ---
+
+**🚥Vue2 系列文章导航🚥**
+
+{% series Vue2 %}
+
 ## 一、模版语法
 
 Vue 使用一种基于 HTML 的模板语法，使我们能够声明式地将其组件实例的数据绑定到呈现的 DOM 上。所有的 Vue 模板都是语法层面合法的 HTML，可以被符合规范的浏览器和 HTML 解析器解析。

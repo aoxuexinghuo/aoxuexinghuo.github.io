@@ -6,7 +6,13 @@ tags:
   - Vue
   - 笔记
   - 前端框架
+series: Vue2
 ---
+
+**🚥Vue2 系列文章导航🚥**
+
+{% series Vue2 %}
+
 ## 一、事件处理
 
 在 Vue 中我们可以使用 `v-on` 指令来监听 DOM 事件，并在事件触发时执行对应的 JavaScript。此外，`v-on` 指令可以缩写为 @ 符号。
