@@ -8,5 +8,6 @@ type: "about"
 
 ------
 
-<p style="font-size: 20px;">会有一日，清阳曜灵，和风容与，万顷阳光洒落，春信映于眼中!!!💐😄🎈</p>
+![小智](https://bu.dusays.com/2024/12/19/6763bd1acb718.jpg)
 
+<p style="font-size: 20px;">会有一日，清阳曜灵，和风容与，万顷阳光洒落，春信映于眼中!!!💐😄🎈</p>
