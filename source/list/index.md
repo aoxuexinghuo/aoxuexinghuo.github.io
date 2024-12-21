@@ -15,5 +15,5 @@ type: "list"
 ## 近期待办
 {% checkbox cyan checked, 解决电子钟天气显示错误问题（不是哥们，你怎么自己好了） %}
 {% checkbox red, 整理 hexo 博客搭建教程 %}
-{% checkbox green, 博客引入彩色图标 %}
+{% checkbox green checked, 博客引入彩色图标 %}
 {% checkbox yellow, 分类汇总湖科大计网每日一题 %}

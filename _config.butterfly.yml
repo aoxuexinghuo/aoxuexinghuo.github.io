@@ -18,19 +18,19 @@ nav:
 
 # Menu 目录
 menu:
-  首页: / || fas fa-home
-  文章||fas fa-book:
-    归档: /archives/ || fas fa-archive
-    分类: /categories/ || fas fa-folder-open
-    标签: /tags/ || fas fa-tags
+  首页: / || iconfont icon-pokeball
+  文章||iconfont icon-adress:
+    归档: /archives/ || iconfont icon-archive
+    分类: /categories/ || iconfont icon-folder
+    标签: /tags/ || iconfont icon-acamulator
   #   清单||fas fa-list:
   #     音乐: /music/ || fas fa-music
   #     电影: /movies/ || fas fa-video
-  友人帐: /link/ || fas fa-link
-  我的||fas fa-street-view:
-    朝花夕拾: /shuoshuo/ || fas fa-pen-clip
-    清单: /list/ || fas fa-clipboard-list
-    关于: /about/ || fas fa-heart
+  友人帐: /link/ || iconfont icon-paper_plane
+  我的||iconfont icon-comete:
+    朝花夕拾: /shuoshuo/ || iconfont icon-mount
+    清单: /list/ || iconfont icon-check
+    关于: /about/ || iconfont icon-heart
 
 # hexo-butterfly-swiper
 # see https://akilar.top/posts/8e1264d1/
@@ -1130,6 +1130,8 @@ inject:
   head:
     - <link rel="stylesheet" href="/css/custom.css">
     - <link rel="stylesheet" href="/css/progress_bar.css" media="defer" onload="this.media='all'">
+    #      阿里图标
+    - <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4778163_63drp74bj2.css">
   bottom:
     - <canvas id="universe"></canvas>
     #      星空背景及流行特效相关
