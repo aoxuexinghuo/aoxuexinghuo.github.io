@@ -83,15 +83,15 @@ magnet:
   type: categories
   devide: 2
   display:
-      - name: Vue
-        display_name: Vue2个人笔记
-        icon: ‍💻
+      - name: 计算机组成原理
+        display_name: 计算机组成原理
+        icon: 📚
       - name: 计算机网络
         display_name: 计算机网络 自顶向下
         icon: 📒
-#    - name: 教程
-#      display_name: 小冰の魔改教程
-#      icon: 📚
+      - name: Vue
+        display_name: Vue2个人笔记
+        icon: ‍💻
 #    - name: 游戏评测
 #      display_name: 小冰の游戏评测
 #      icon: 🎮
