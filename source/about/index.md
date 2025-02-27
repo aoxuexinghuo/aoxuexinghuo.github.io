@@ -7,6 +7,6 @@ type: "about"
 
 ------
 
-![小智](https://bu.dusays.com/2024/12/19/6763bd1acb718.jpg)
+![小智](https://bu.dusays.com/2024/12/11/67595c996c588.png)
 
 <p style="font-size: 20px; font-weight: bold;">会有一日，清阳曜灵，和风容与，万顷阳光洒落，春信映于眼中!!!💐😄🎈</p>
