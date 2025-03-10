@@ -3,7 +3,7 @@ title: 清单
 date: 2024-12-13 09:24:20
 type: "list"
 ---
-<p style="font-weight: bold; font-size: 2em; text-align: center;">有想做的便去吧，在明天到来之前</p>
+<p style="font-weight: bold; font-size: 2em; text-align: center;">去试试吧，在明天到来之前</p>
 
 ## 长期目标
 
