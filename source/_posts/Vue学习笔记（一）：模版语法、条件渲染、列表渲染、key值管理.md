@@ -8,7 +8,6 @@ tags:
   - 前端框架
 description: 建议直接去学最新的Vue3。
 series: Vue2
-swiper_index: 3
 ---
 
 > **🚥Vue2 系列文章导航🚥**

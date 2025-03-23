@@ -86,6 +86,9 @@ magnet:
       - name: 计算机组成原理
         display_name: 计算机组成原理
         icon: 📚
+      - name: 操作系统
+        display_name: 操作系统
+        icon: ‍📓
       - name: 计算机网络
         display_name: 计算机网络 自顶向下
         icon: 📒
@@ -103,7 +106,7 @@ magnet:
 #      icon: 👩‍💻
 #    - name: 学习
 #      display_name: 小冰の读书笔记
-#      icon: 📒
+#      icon: 📚
 #    - name: 随想
 #      display_name: 小冰の胡思乱想
 #      icon: 💡
