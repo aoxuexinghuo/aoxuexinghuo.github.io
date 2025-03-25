@@ -47,10 +47,15 @@
       siteshot: https://bu.dusays.com/2024/12/18/67629e80c07a8.jpg
       descr: 包不是咸鱼的。
     - name: Dinglz
-      link: https://dinglz.us.kg/
+      link: https://dinglz.cn/
       avatar: https://avatars.githubusercontent.com/u/97778145
       siteshot: https://bu.dusays.com/2024/12/18/67622688b6a54.jpg
       descr: 24级新晋高手
+    - name: LuciusWan
+      link: https://luciuswan.github.io/
+      avatar: https://avatars.githubusercontent.com/u/180892006
+      siteshot: https://bu.dusays.com/2025/03/25/67e2779a5242d.png
+      descr: Java大神竟在我身边
 
 - class_name: 技术支持
   class_desc: 本网站的搭建由以下开源作者提供技术支持
