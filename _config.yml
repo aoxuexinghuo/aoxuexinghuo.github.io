@@ -83,18 +83,21 @@ magnet:
   type: categories
   devide: 2
   display:
+      - name: 数据结构
+        display_name: 数据结构
+        icon: 📚
       - name: 计算机组成原理
         display_name: 计算机组成原理
-        icon: 📚
+        icon: 📖
       - name: 操作系统
         display_name: 操作系统
         icon: ‍📓
       - name: 计算机网络
         display_name: 计算机网络 自顶向下
         icon: 📒
-      - name: Vue
-        display_name: Vue2个人笔记
-        icon: ‍💻
+#      - name: Vue
+#        display_name: Vue2个人笔记
+#        icon: ‍💻
 #    - name: 游戏评测
 #      display_name: 小冰の游戏评测
 #      icon: 🎮
