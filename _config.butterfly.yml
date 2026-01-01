@@ -19,18 +19,12 @@ nav:
 # Menu 目录
 menu:
   首页: / || iconfont icon-pokeball
-  文章||iconfont icon-adress:
+  文章||iconfont icon-check:
     归档: /archives/ || iconfont icon-archive
     分类: /categories/ || iconfont icon-folder
     标签: /tags/ || iconfont icon-acamulator
-  #   清单||fas fa-list:
-  #     音乐: /music/ || fas fa-music
-  #     电影: /movies/ || fas fa-video
   友人帐: /link/ || iconfont icon-paper_plane
-  我的||iconfont icon-comete:
-    朝花夕拾: /shuoshuo/ || iconfont icon-mount
-    清单: /list/ || iconfont icon-check
-    关于: /about/ || iconfont icon-heart
+  个人: /about/ || iconfont icon-comete
 
 # hexo-butterfly-swiper
 # see https://akilar.top/posts/8e1264d1/
