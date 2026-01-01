@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>数据结构 第一章 绪论</title>
-      <link href="/2025/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/"/>
-      <url>/2025/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/</url>
+      <title>数据结构 随笔</title>
+      <link href="/2025/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E9%9A%8F%E7%AC%94/"/>
+      <url>/2025/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E9%9A%8F%E7%AC%94/</url>
       
-        <content type="html"><![CDATA[<blockquote><p><strong>🚥数据结构 系列文章导航🚥</strong></p><ol class="series-items"><li><a href="/2025/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E7%BB%AA%E8%AE%BA/" title="数据结构 第一章 绪论">数据结构 第一章 绪论</a></li></ol></blockquote>]]></content>
+        <content type="html"><![CDATA[<blockquote><p><strong>🚥数据结构 系列文章导航🚥</strong></p><ol class="series-items"><li><a href="/2025/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E9%9A%8F%E7%AC%94/" title="数据结构 随笔">数据结构 随笔</a></li></ol></blockquote><h3 id="快速排序">快速排序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">QuickSort</span>( <span class="type">int</span> <span class="built_in">A</span>(), <span class="type">int</span> low, <span class="type">int</span> high)&#123;</span><br><span class="line">  <span class="keyword">if</span>(low &lt; high)&#123;</span><br><span class="line">    <span class="type">int</span> mid = (low + high)/<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">partition</span>(A, low, mid);</span><br><span class="line">    <span class="built_in">QuickAort</span>(A, mid, high);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Partition</span>()</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
