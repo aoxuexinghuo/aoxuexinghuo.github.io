@@ -83,9 +83,9 @@ magnet:
   type: categories
   devide: 2
   display:
-      - name: 数据结构
-        display_name: 数据结构
-        icon: 📚
+      - name: code
+        display_name: 力扣
+        icon: 💻
       - name: 计算机组成原理
         display_name: 计算机组成原理
         icon: 📖
